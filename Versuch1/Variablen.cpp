@@ -75,7 +75,7 @@ int main()
 		}
 	}
 	cout << "Position von Anfangsbuchstabe im alphabet:" << iPos1 << endl;
-
+	// TEST
 
 	int iPos2 = iName2 - 65+1;
 	if (iPos2 > 26 || iPos2 <= 0) {
