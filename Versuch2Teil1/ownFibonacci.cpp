@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-int fibonacci(int n)
+long int fibonacci(int n)
 {
 	if (n == 0) {
 		return 0;
@@ -27,5 +27,8 @@ int main ()
     	std::cout << fibonacci(i) << std::endl;
     }
 
+    std::cout << "nun 42" << std::endl;
+
+    std::cout << fibonacci(47) << std::endl;
     return 0;
 }
