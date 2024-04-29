@@ -170,7 +170,6 @@ bool zugAusfuehrenTest(int eingabeFeld[GROESSE_Y][GROESSE_X], const int ergebnis
 		}
 		return false;
 	}
-    return 0;
 }
 
 bool moeglicheZuegeTest(const int eingabeFeld[GROESSE_Y][GROESSE_X], const int spieler,
@@ -181,7 +180,27 @@ bool moeglicheZuegeTest(const int eingabeFeld[GROESSE_Y][GROESSE_X], const int s
     //
     // Hier erfolgt jetzt Ihre Implementierung ...
 
-    return 0;
+	std::cout << "Fuehre Test " << testNummer + 1 << " fuer 'moeglicheZuege()' aus ..." << std::endl;
+	std::cout << "----------------------------------" << std::endl << std::endl;
+	int possibleMoves = moeglicheZuege(eingabeFeld, spieler);
+
+	if (possibleMoves == richtig)
+	{
+		std::cout << "Test " << testNummer + 1 << " bestanden!" << std::endl << std::endl;
+		return true;
+	}
+	else
+	{
+		std::cout << "Test " << testNummer + 1 << " fehlgeschlagen" << std::endl << std::endl;
+		if (AUSFUEHRLICH == 1)
+		{
+			cout << "Spielfeld: "<< endl;
+			zeigeSpielfeld(eingabeFeld);
+			cout << "Berechneter Wert: " << possibleMoves << endl << "Richtiger Wert: " << richtig << endl << endl;
+
+		}
+		return false;
+	}
 }
 
 /**
@@ -610,6 +629,10 @@ bool ganzenTestAusfuehren()
         for (int i = 0; i < 2; i++)
         {
             // Hier erfolgt jetzt Ihre Implementierung (entsprechende Testfunktion aufrufen) ...
+        	bool tmp_bestanden = moeglicheZuegeTest(eingabeFeld[i], spieler[i], korrektesErgebnis[i], i);
+			if (gesamtErgebnis == true && tmp_bestanden == false) {
+				gesamtErgebnis = false;
+			}
         }
     }
 

@@ -283,11 +283,60 @@ void zugAusfuehren(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpiel
 
 }
 
+
+/* Kommentar an self:
+ *
+ * 2 Ansätze: Finde spieler, suche in alle richtungen nach gegnern (bis zu leerem feld)
+ * Problem: Felder werden mehrmals gezählt, wenn in mehrere Richtungen Gegner - Spieler stehen
+ *
+ * Anderer Ansatz (ohne das problem, aber rechenaufwendiger):
+ * Finde leere felder - wenn in mind. eine richtung gegner-spieler sind, dann zähle diesen und gehe zum nächsten Feld.
+ *
+ * Performance negierbar, allerdings gibt es bestimmt einen besseren Ansatz.
+ *
+ *
+ *
+ */
 int moeglicheZuege(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpieler)
 {
     // Hier erfolgt jetzt Ihre Implementierung ...
     
-    return 0;
+	int gegner = 3 - aktuellerSpieler;
+
+	int possibleMoves = 0;
+
+	for (int posX = 0; posX < GROESSE_X; posX++) {
+		for (int posY = 0; posY < GROESSE_Y; posY++) {
+			if (spielfeld[posY][posX] == 0) {
+				bool isPossible = false;
+				for (int j = -1; j <= 1; j++) {
+					for (int i = -1; i <= 1; i++) {
+						int laufX = posX + j;
+						int laufY = posY + i;
+						if (!aufSpielfeld(laufX, laufY)) continue;
+						if (spielfeld[laufY][laufX] != gegner) continue;
+
+						do {
+							laufX += j;
+							laufY += i;
+
+							if (spielfeld[laufY][laufX] == aktuellerSpieler) {
+								possibleMoves += 1;
+								isPossible = true;
+								break;
+							} else if (spielfeld[laufY][laufX] == 0) {
+								break;
+							}
+						} while (aufSpielfeld(laufX, laufY));
+
+						if (isPossible) break;
+					}
+					if (isPossible) break;
+				}
+			}
+		}
+	}
+	return possibleMoves;
 }
 
 
