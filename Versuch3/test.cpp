@@ -76,7 +76,7 @@ bool aufSpielfeldTest(const int posX, const int posY, const bool richtig, const 
 
 	std::cout << "Fuehre Test " << testNummer + 1 << " fuer 'aufSpielfeld()' aus ..." << std::endl;
 	std::cout << "----------------------------------" << std::endl << std::endl;
-	int ergebnis = aufSpielfeld(posX, posY);
+	bool ergebnis = aufSpielfeld(posX, posY);
 	if (ergebnis == richtig)
 	{
 		std::cout << "Test " << testNummer + 1 << " bestanden!" << std::endl << std::endl;
@@ -87,7 +87,7 @@ bool aufSpielfeldTest(const int posX, const int posY, const bool richtig, const 
 		std::cout << "Test " << testNummer + 1 << " fehlgeschlagen" << std::endl << std::endl;
 		if (AUSFUEHRLICH == 1)
 		{
-			cout << "Position: " << posX << " - " << posY << endl;
+			cout << "Position: " << ((char) (65 + posX)) << " - " << posY + 1 << endl;
 			std::cout << std::endl << "Berechnetes Ergebnis: " << ergebnis << std::endl << "Richtiges Ergebnis: " << richtig
 					  << std::endl << std::endl;
 		}
@@ -105,7 +105,28 @@ bool zugGueltigTest(const int eingabeFeld[GROESSE_Y][GROESSE_X], const int spiel
     //
     // Hier erfolgt jetzt Ihre Implementierung ...
 
-    return 0;
+	std::cout << "Fuehre Test " << testNummer + 1 << " fuer 'zugGueltig()' aus ..." << std::endl;
+	std::cout << "----------------------------------" << std::endl << std::endl;
+	bool ergebnis = zugGueltig(eingabeFeld, spieler, posX, posY);
+	if (ergebnis == richtig)
+	{
+		std::cout << "Test " << testNummer + 1 << " bestanden!" << std::endl << std::endl;
+		return true;
+	}
+	else
+	{
+		std::cout << "Test " << testNummer + 1 << " fehlgeschlagen" << std::endl << std::endl;
+		if (AUSFUEHRLICH == 1)
+		{
+            zeigeSpielfeld(eingabeFeld);
+			cout << "Position: " << ((char) (65 + posX)) << " - " << posY + 1 << endl;
+			cout << "Spieler: " << spieler << endl;
+
+			std::cout << std::endl << "Berechnetes Ergebnis: " << ergebnis << std::endl << "Richtiges Ergebnis: " << richtig
+					  << std::endl << std::endl;
+		}
+		return false;
+	}
 }
 
 
@@ -288,6 +309,10 @@ bool ganzenTestAusfuehren()
         for (int i = 0; i < 7; i++)
         {
             // Hier erfolgt jetzt Ihre Implementierung (entsprechende Testfunktion aufrufen) ...
+        	bool tmp_bestanden = zugGueltigTest(eingabeFeld[i], spieler[i], position[i][0], position[i][1], korrektesErgebnis[i], i);
+			if (gesamtErgebnis == true && tmp_bestanden == false) {
+				gesamtErgebnis = false;
+			}
         }
     }
 

@@ -190,7 +190,34 @@ bool zugGueltig(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSp
     {
         for (int i = -1; i <= 1; i++)
         {
+        	int pruefX = posX + j;
+        	int pruefY = posY + i;
+
             // Hier erfolgt jetzt Ihre Implementierung ...
+        	if (!aufSpielfeld(pruefX, pruefY)) {
+        		continue;
+        	}
+        	if (spielfeld[pruefY][pruefX] == gegner) {
+
+
+        		int pruefX2 = posX + j;
+        		int pruefY2 = posY + i;
+        		while (aufSpielfeld(pruefX2, pruefY2)) {
+
+
+        			if (spielfeld[pruefY2][pruefX2] == 0) {
+        				break;
+        			} else if (spielfeld[pruefY2][pruefX2] == aktuellerSpieler) {
+        				return true;
+        			}
+
+
+        			pruefX2 += j;
+        			pruefY2 += i;
+        		}
+
+
+        	}
         }
     }
     return false;
