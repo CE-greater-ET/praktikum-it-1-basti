@@ -149,8 +149,15 @@ int gewinner(const int spielfeld[GROESSE_Y][GROESSE_X])
 */
 bool aufSpielfeld(const int posX, const int posY)
 {
+	if (posX < 0 || posX >= GROESSE_X) {
+		return false;
+	}
+	if (posY < 0 || posY >= GROESSE_Y) {
+		return false;
+	}
+
     // Hier erfolgt jetzt Ihre Implementierung ...
-    return false;
+    return true;
 }
 
 

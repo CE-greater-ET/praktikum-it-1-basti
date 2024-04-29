@@ -11,6 +11,7 @@
 #include "config.h"
 #include "test.h"
 
+using namespace std;
 
 /*
  * Deklaration der in den Tests verwendeten Funktionen.
@@ -73,7 +74,26 @@ bool aufSpielfeldTest(const int posX, const int posY, const bool richtig, const 
     //
     // Hier erfolgt jetzt Ihre Implementierung ...
 
-    return 0;
+	std::cout << "Fuehre Test " << testNummer + 1 << " fuer 'aufSpielfeld()' aus ..." << std::endl;
+	std::cout << "----------------------------------" << std::endl << std::endl;
+	int ergebnis = aufSpielfeld(posX, posY);
+	if (ergebnis == richtig)
+	{
+		std::cout << "Test " << testNummer + 1 << " bestanden!" << std::endl << std::endl;
+		return true;
+	}
+	else
+	{
+		std::cout << "Test " << testNummer + 1 << " fehlgeschlagen" << std::endl << std::endl;
+		if (AUSFUEHRLICH == 1)
+		{
+			cout << "Position: " << posX << " - " << posY << endl;
+			std::cout << std::endl << "Berechnetes Ergebnis: " << ergebnis << std::endl << "Richtiges Ergebnis: " << richtig
+					  << std::endl << std::endl;
+		}
+		return false;
+	}
+
 }
 
 
@@ -178,8 +198,12 @@ bool ganzenTestAusfuehren()
 
         for (int i = 0; i < 6; i++)
         {
-            // Hier erfolgt jetzt Ihre Implementierung (entsprechende Testfunktion aufrufen) ...
+        	bool tmp_bestanden = aufSpielfeldTest(position[i][0], position[i][1], korrektesErgebnis[i], i);
+            if (gesamtErgebnis == true && tmp_bestanden == false) {
+            	gesamtErgebnis = false;
+            }
         }
+        cout << "Ende des Tests fuer 'aufSpielfeld()'" << endl << endl;
     }
     
 // ---------- TESTE ZUG GUELTIG ---------- //
@@ -372,7 +396,7 @@ bool ganzenTestAusfuehren()
                 }
             };
 
-        int ergebnisFeld[10][8][8] {
+        int ergebnisFeld[10][8][8] = {
                 {   {0, 0, 0, 0, 0, 0, 0, 0},
                     {0, 0, 0, 0, 0, 0, 0, 0},
                     {0, 0, 0, 0, 0, 1, 2, 2},
@@ -497,7 +521,7 @@ bool ganzenTestAusfuehren()
 
 // ---------- TESTE MOEGLICHE ZUEGE ---------- //
     {
-        int eingabeFeld[2][8][8] {
+        int eingabeFeld[2][8][8] = {
                 {   {0, 0, 0, 0, 0, 0, 0, 0},
                     {0, 0, 0, 0, 0, 0, 0, 0},
                     {0, 0, 0, 0, 0, 0, 0, 0},
