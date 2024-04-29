@@ -202,8 +202,11 @@ bool zugGueltig(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSp
 
         		int pruefX2 = posX + j;
         		int pruefY2 = posY + i;
-        		while (aufSpielfeld(pruefX2, pruefY2)) {
 
+        		// do-while, damit ein vergleich gespart wird (hoffentlich ist das schneller)
+        		do {
+        			pruefX2 += j;
+        			pruefY2 += i;
 
         			if (spielfeld[pruefY2][pruefX2] == 0) {
         				break;
@@ -212,9 +215,7 @@ bool zugGueltig(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSp
         			}
 
 
-        			pruefX2 += j;
-        			pruefY2 += i;
-        		}
+        		} while (aufSpielfeld(pruefX2, pruefY2));
 
 
         	}
@@ -245,6 +246,38 @@ void zugAusfuehren(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpiel
             // allen Richtungen in Ihre eigenen Steine umgewandelt werden
             //
             // Hier erfolgt jetzt Ihre Implementierung ...
+
+        	int laufX = posX + j;
+			int laufY = posY + i;
+
+        	if (!aufSpielfeld(laufX, laufY)) continue;
+
+        	if (spielfeld[laufY][laufX] != gegner) continue;
+
+			do {
+				laufX += j;
+				laufY += i;
+
+				if (spielfeld[laufY][laufX] == aktuellerSpieler) {
+					//  alle gegner ficken
+					// TODO: kommentar entfernen
+					laufX -= j;
+					laufY -= i;
+
+					while (spielfeld[laufY][laufX] == gegner) {
+						spielfeld[laufY][laufX] = aktuellerSpieler;
+
+						laufX -= j;
+						laufY -= i;
+					}
+					spielfeld[posY][posX] = aktuellerSpieler;
+					break;
+
+				} else if (spielfeld[laufY][laufX] == 0) {
+					break;
+				}
+
+			} while (aufSpielfeld(laufX, laufY));
         }
     }
 

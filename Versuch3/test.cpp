@@ -137,7 +137,39 @@ bool zugAusfuehrenTest(int eingabeFeld[GROESSE_Y][GROESSE_X], const int ergebnis
     // wenn AUSFUEHRLICH gleich 1 werden zusaetzlich beide Spielfelder ausgegeben   
     //
     // Hier erfolgt jetzt Ihre Implementierung ...
+	std::cout << "Fuehre Test " << testNummer + 1 << " fuer 'zugAusfuehren()' aus ..." << std::endl;
+	std::cout << "----------------------------------" << std::endl << std::endl;
+	zugAusfuehren(eingabeFeld, spieler, posX, posY);
+	bool isEqual = true;
 
+	for (int i = 0; i < GROESSE_X; i++) {
+		for (int j = 0; j < GROESSE_Y; j++) {
+			if (eingabeFeld[j][i] != ergebnisFeld[j][i]) {
+				isEqual = false;
+				break;
+			}
+		}
+		if (!isEqual) break;
+	}
+
+	if (isEqual)
+	{
+		std::cout << "Test " << testNummer + 1 << " bestanden!" << std::endl << std::endl;
+		return true;
+	}
+	else
+	{
+		std::cout << "Test " << testNummer + 1 << " fehlgeschlagen" << std::endl << std::endl;
+		if (AUSFUEHRLICH == 1)
+		{
+			cout << "Berechnetes Spielfeld: "<< endl;
+			zeigeSpielfeld(eingabeFeld);
+			cout << "Korrektes Spielfeld: " << endl;
+
+			zeigeSpielfeld(ergebnisFeld);
+		}
+		return false;
+	}
     return 0;
 }
 
@@ -540,6 +572,10 @@ bool ganzenTestAusfuehren()
         for (int i = 0; i < 10; i++)
         {
             // Hier erfolgt jetzt Ihre Implementierung (entsprechende Testfunktion aufrufen) ...
+        	bool tmp_bestanden = zugAusfuehrenTest(eingabeFeld[i], ergebnisFeld[i], spieler[i], position[i][0], position[i][1], i);
+			if (gesamtErgebnis == true && tmp_bestanden == false) {
+				gesamtErgebnis = false;
+			}
         }
     }
 
