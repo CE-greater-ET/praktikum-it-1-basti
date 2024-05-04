@@ -401,39 +401,27 @@ void spielen(const int spielerTyp[2])
 
     int runden = 1;
     while (1) {
+    	bool moegl;
     	if (spielerTyp[aktuellerSpieler - 1] == MENSCH) {
     		cout << endl;
     		zeigeSpielfeld(spielfeld);
-    		bool moegl = menschlicherZug(spielfeld, aktuellerSpieler);
-    		if (!moegl && noMoves) break;
-    		else if (!moegl) noMoves = true;
-    		else noMoves = false;
-
-    		aktuellerSpieler = 3 - aktuellerSpieler;
+    		moegl = menschlicherZug(spielfeld, aktuellerSpieler);
 
     	} else if (spielerTyp[aktuellerSpieler - 1] == COMPUTER) {
-			bool moegl = computerZug(spielfeld, aktuellerSpieler);
+    		moegl = computerZug(spielfeld, aktuellerSpieler);
     		zeigeSpielfeld(spielfeld);
-			cout << "Spieler " << aktuellerSpieler << " noch " << moeglicheZuege(spielfeld, aktuellerSpieler) << " Züge." << endl;
-			if (!moegl && noMoves) break;
-			else if (!moegl) noMoves = true;
-			else noMoves = false;
-
-			aktuellerSpieler = 3 - aktuellerSpieler;
+			// cout << "Spieler " << aktuellerSpieler << " noch " << moeglicheZuege(spielfeld, aktuellerSpieler) << " Züge." << endl;
 
     	} else {
     		break;
     	}
-    	cout << "Runde: " << runden++ << endl;
+		if (!moegl && noMoves) break;
+		else if (!moegl) noMoves = true;
+		else noMoves = false;
 
-//    	if (spielerTyp[1] == MENSCH) {
-//			bool moegl = menschlicherZug(spielfeld, 3-aktuellerSpieler);
-//			if (!moegl && noMoves1) noMoves2 = true;
-//			else if (!moegl) noMoves2 = true;
-//			else noMoves2 = false;
-//		} else if (spielerTyp[0] == COMPUTER) {
-//
-//		}
+		aktuellerSpieler = 3 - aktuellerSpieler;
+
+    	cout << "Runde: " << runden++ << endl;
 
     }
     int gewinnerInt = gewinner(spielfeld);
