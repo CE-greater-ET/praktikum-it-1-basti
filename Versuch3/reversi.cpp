@@ -202,23 +202,19 @@ bool zugGueltig(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSp
         	}
         	if (spielfeld[pruefY][pruefX] == gegner) {
 
-
-        		int pruefX2 = posX + j;
-        		int pruefY2 = posY + i;
-
         		// do-while, damit ein vergleich gespart wird (hoffentlich ist das schneller)
         		do {
-        			pruefX2 += j;
-        			pruefY2 += i;
 
-        			if (spielfeld[pruefY2][pruefX2] == 0) {
+        			if (spielfeld[pruefY][pruefX] == 0) {
         				break;
-        			} else if (spielfeld[pruefY2][pruefX2] == aktuellerSpieler) {
+        			} else if (spielfeld[pruefY][pruefX] == aktuellerSpieler) {
         				return true;
         			}
+        			pruefX += j;
+        			pruefY += i;
 
 
-        		} while (aufSpielfeld(pruefX2, pruefY2));
+        		} while (aufSpielfeld(pruefX, pruefY));
 
 
         	}
@@ -258,8 +254,6 @@ void zugAusfuehren(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpiel
         	if (spielfeld[laufY][laufX] != gegner) continue;
 
 			do {
-				laufX += j;
-				laufY += i;
 
 				if (spielfeld[laufY][laufX] == aktuellerSpieler) {
 					//  alle gegner ficken
@@ -279,6 +273,8 @@ void zugAusfuehren(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpiel
 				} else if (spielfeld[laufY][laufX] == 0) {
 					break;
 				}
+				laufX += j;
+				laufY += i;
 
 			} while (aufSpielfeld(laufX, laufY));
         }
