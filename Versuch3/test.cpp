@@ -370,7 +370,7 @@ bool ganzenTestAusfuehren()
 
 // ---------- TESTE ZUG AUSFUEHREN ---------- //
     {
-        int eingabeFeld[10][8][8] = {
+        int eingabeFeld[11][8][8] = {
                 {   {0, 0, 0, 0, 0, 0, 0, 0},
                     {0, 0, 0, 0, 0, 0, 0, 0},
                     {0, 0, 0, 0, 0, 1, 2, 2},
@@ -469,10 +469,20 @@ bool ganzenTestAusfuehren()
                     {0, 0, 2, 0, 0, 2, 0, 0},
                     {0, 1, 0, 0, 0, 1, 0, 0},
                     {0, 0, 0, 0, 0, 0, 0, 0}
-                }
+                }, // CUSTOM TEST
+				{
+					{0, 0, 0, 0, 1, 0, 0, 0},
+					{0, 0, 0, 0, 1, 0, 0, 0},
+					{0, 2, 1, 1, 0, 0, 0, 0},
+					{0, 0, 0, 0, 1, 0, 0, 0},
+					{0, 0, 0, 0, 1, 0, 0, 0},
+					{0, 0, 0, 0, 1, 0, 0, 0},
+					{0, 0, 0, 0, 1, 0, 0, 0},
+					{0, 0, 0, 0, 2, 0, 0, 0}
+				},
             };
 
-        int ergebnisFeld[10][8][8] = {
+        int ergebnisFeld[11][8][8] = {
                 {   {0, 0, 0, 0, 0, 0, 0, 0},
                     {0, 0, 0, 0, 0, 0, 0, 0},
                     {0, 0, 0, 0, 0, 1, 2, 2},
@@ -570,11 +580,21 @@ bool ganzenTestAusfuehren()
                     {0, 0, 2, 0, 0, 2, 0, 0},
                     {0, 1, 0, 0, 0, 1, 0, 0},
                     {0, 0, 0, 0, 0, 0, 0, 0}
-                }
+                }, // CUSTOM TEST
+				{
+					{0, 0, 0, 0, 1, 0, 0, 0},
+					{0, 0, 0, 0, 1, 0, 0, 0},
+					{0, 2, 2, 2, 2, 0, 0, 0},
+					{0, 0, 0, 0, 2, 0, 0, 0},
+					{0, 0, 0, 0, 2, 0, 0, 0},
+					{0, 0, 0, 0, 2, 0, 0, 0},
+					{0, 0, 0, 0, 2, 0, 0, 0},
+					{0, 0, 0, 0, 2, 0, 0, 0}
+				}
             };
 
-        int spieler[10]={0,0,0,1,2,0,1,2,2,1};
-        int position[10][2]=                       // eine andere, moegliche Darstellung
+        int spieler[11]={0,0,0,1,2,0,1,2,2,1, /*custom*/2};
+        int position[11][2]=                       // eine andere, moegliche Darstellung
                     {                              // der gegebenen Positionen posX, posY
                         {0,0},
                         {0,0},
@@ -585,10 +605,12 @@ bool ganzenTestAusfuehren()
                         {3,4},
                         {2,4},
                         {1,4},
-                        {5,2}
+                        {5,2},
+						//custom
+						{4,2}
                     };
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 11; i++)
         {
             // Hier erfolgt jetzt Ihre Implementierung (entsprechende Testfunktion aufrufen) ...
         	bool tmp_bestanden = zugAusfuehrenTest(eingabeFeld[i], ergebnisFeld[i], spieler[i], position[i][0], position[i][1], i);

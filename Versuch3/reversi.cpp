@@ -21,6 +21,9 @@
 #include "reversiKI.h"
 
 
+using namespace std;
+
+
 /**
  * @brief Funktion zur ersten Initialisierung eines neuen Spielfelds
  *
@@ -317,9 +320,6 @@ int moeglicheZuege(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuelle
 						if (spielfeld[laufY][laufX] != gegner) continue;
 
 						do {
-							laufX += j;
-							laufY += i;
-
 							if (spielfeld[laufY][laufX] == aktuellerSpieler) {
 								possibleMoves += 1;
 								isPossible = true;
@@ -327,6 +327,8 @@ int moeglicheZuege(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuelle
 							} else if (spielfeld[laufY][laufX] == 0) {
 								break;
 							}
+							laufX += j;
+							laufY += i;
 						} while (aufSpielfeld(laufX, laufY));
 
 						if (isPossible) break;
@@ -393,19 +395,104 @@ void spielen(const int spielerTyp[2])
     initialisiereSpielfeld(spielfeld);
 
     int aktuellerSpieler = 1;
-    zeigeSpielfeld(spielfeld);
+
 
     // solange noch Zuege bei einem der beiden Spieler moeglich sind
     //
     // Hier erfolgt jetzt Ihre Implementierung ...
     
-    switch (gewinner(spielfeld))
+    bool noMoves = false;
+
+    int runden = 1;
+    while (1) {
+    	if (spielerTyp[aktuellerSpieler - 1] == MENSCH) {
+    		cout << endl;
+    		zeigeSpielfeld(spielfeld);
+    		bool moegl = menschlicherZug(spielfeld, aktuellerSpieler);
+    		if (!moegl && noMoves) break;
+    		else if (!moegl) noMoves = true;
+    		else noMoves = false;
+
+    		aktuellerSpieler = 3 - aktuellerSpieler;
+
+    	} else if (spielerTyp[aktuellerSpieler - 1] == COMPUTER) {
+			bool moegl = computerZug(spielfeld, aktuellerSpieler);
+    		zeigeSpielfeld(spielfeld);
+			cout << "Spieler " << aktuellerSpieler << " noch " << moeglicheZuege(spielfeld, aktuellerSpieler) << " Züge." << endl;
+			if (!moegl && noMoves) break;
+			else if (!moegl) noMoves = true;
+			else noMoves = false;
+
+			aktuellerSpieler = 3 - aktuellerSpieler;
+
+    	} else {
+    		break;
+    	}
+    	cout << "Runde: " << runden++ << endl;
+
+//    	if (spielerTyp[1] == MENSCH) {
+//			bool moegl = menschlicherZug(spielfeld, 3-aktuellerSpieler);
+//			if (!moegl && noMoves1) noMoves2 = true;
+//			else if (!moegl) noMoves2 = true;
+//			else noMoves2 = false;
+//		} else if (spielerTyp[0] == COMPUTER) {
+//
+//		}
+
+    }
+    int gewinnerInt = gewinner(spielfeld);
+    if (gewinnerInt == 0) {
+    	cout << "Unentschieden! Better Luck next time!" << endl;
+    	return;
+    }
+
+    switch (gewinnerInt + 4*spielerTyp[gewinnerInt-1])
     {
         // Hier erfolgt jetzt Ihre Implementierung ...
+    	case 1 + 4*MENSCH:
+    		cout << "Spieler 1 hat gewonnen! Herzlichen Glückwunsch!" << endl;
+    		break;
+    	case 2 + 4*MENSCH:
+
+    		cout << "Spieler 2 hat gewonnen! Herzlichen Glückwunsch!" << endl;
+    		break;
+    	case 1 + 4*COMPUTER:
+
+			cout << "Computer 1 hat gewonnen! KI übernimmt bald die Welt!" << endl;
+			break;
+
+    	case 2 + 4*COMPUTER:
+
+			cout << "Computer 2 hat gewonnen! KI übernimmt bald die Welt!" << endl;
+			break;
+    	default:
+    		cout << "Keine Ahnung wer gewonnen hat..." << endl;
+    		break;
+
     }
 }
 
-int main()
+int spielmain ()
+{
+	int spielerTyp [2] = { MENSCH , MENSCH };
+	spielen ( spielerTyp ) ;
+	return 0;
+}
+
+int computermain() {
+	int spielerTyp [2] = { MENSCH , COMPUTER };
+		spielen ( spielerTyp ) ;
+		return 0;
+}
+
+int kimain ()
+{
+	int spielerTyp [2] = { COMPUTER , COMPUTER };
+	spielen ( spielerTyp ) ;
+	return 0;
+}
+
+int testmain()
 {
     if (TEST == 1)
     {
@@ -430,10 +517,29 @@ int main()
 
     zeigeSpielfeld(spielfeld);
 
+
+
+
+
     // int spielerTyp[2] = { COMPUTER, COMPUTER };  // Feld, das Informationen ueber den Typ des Spielers enthaelt. MENSCH(=1) oder COPMUTER(=2)
     // spielen(spielerTyp);
     //
     // Hier erfolgt jetzt Ihre Implementierung ...
     
     return 0;
+}
+
+
+int main(){
+	int testlist[4][4] =
+		{
+			{1,2,3,4},
+			{5,6,7,8},
+			{9,10,11,12},
+			{13,14,15,16}
+		};
+	cout << testlist[2][-1] << endl;
+
+	kimain();
+	return 0;
 }
