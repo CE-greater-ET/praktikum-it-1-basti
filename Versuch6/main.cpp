@@ -142,6 +142,8 @@ int main()
 //					matNrLoeschen = 34567;
 					cin >> matNrLoeschen;
 
+					cout << "hahahahahah lol " << endl;
+
 					try {
 						Student geloeschter = studentenListe.deleteMatNr(matNrLoeschen);
 						cout << "Der folgende Student wurde geloescht:\n\n" << endl;
