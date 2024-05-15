@@ -7,15 +7,15 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
-#include "Liste.h"
 #include "Student.h"
 
 using namespace std;
 
 int main()
 {
-    Liste studentenListe;
+    vector<Student> studentenListe;
     Student student;
 
     char abfrage;
@@ -29,15 +29,15 @@ int main()
     if (abfrage != 'j')
     {
         student = Student(34567, "Harro Simoneit", "19.06.1971", "Am Markt 1");
-        studentenListe.pushBack(student);
+        studentenListe.push_back(student);
         student = Student(74567, "Vera Schmitt", "23.07.1982", "Gartenstr. 23");
-        studentenListe.pushBack(student);
+        studentenListe.push_back(student);
         student = Student(12345, "Siggi Baumeister", "23.04.1983", "Ahornst.55");
-        studentenListe.pushBack(student);
+        studentenListe.push_back(student);
         student = Student(64567, "Paula Peters", "9.01.1981", "Weidenweg 12");
-        studentenListe.pushBack(student);
+        studentenListe.push_back(student);
         student = Student(23456, "Walter Rodenstock", "15.10.1963", "W�llnerstr.9");
-        studentenListe.pushBack(student);
+        studentenListe.push_back(student);
     }
 
     do
@@ -82,7 +82,7 @@ int main()
 
                     student = Student(matNr, name, geburtstag, adresse);
 
-                    studentenListe.pushBack(student);
+                    studentenListe.push_back(student);
                 }
                 break;
 
@@ -91,10 +91,10 @@ int main()
                 {
                     if(!studentenListe.empty())
                     {
-                        student = studentenListe.dataFront();
+                        student = studentenListe.front();
                         std::cout << "Der folgende Student ist geloescht worden:" << std::endl;
                         student.ausgabe();
-                        studentenListe.popFront();
+                        studentenListe.erase(studentenListe.begin());
                     }
                     else
                     {
@@ -108,7 +108,8 @@ int main()
                 if(!studentenListe.empty())
                 {
                     std::cout << "Inhalt der Liste in fortlaufender Reihenfolge:" << std::endl;
-                    studentenListe.ausgabeVorwaerts();
+                    for (vector<Student>::iterator it = studentenListe.begin() ; it != studentenListe.end(); ++it)
+                        it->ausgabe();
                 }
                 else
                 {
@@ -120,7 +121,8 @@ int main()
                 if(!studentenListe.empty())
                 {
                     std::cout << "Inhalt der Liste in rücklaufender Reihenfolge:" << std::endl;
-                    studentenListe.ausgabeRueckwaerts();
+                    for (vector<Student>::reverse_iterator it = studentenListe.rbegin() ; it != studentenListe.rend(); ++it)
+						it->ausgabe();
                 }
                 else
                 {
@@ -145,9 +147,19 @@ int main()
 					cout << "hahahahahah lol " << endl;
 
 					try {
-						Student geloeschter = studentenListe.deleteMatNr(matNrLoeschen);
-						cout << "Der folgende Student wurde geloescht:\n\n" << endl;
-						geloeschter.ausgabe();
+						int didDeletion = false;
+
+						for (vector<Student>::iterator it = studentenListe.begin() ; it != studentenListe.end(); ++it) {
+							if (matNrLoeschen == it->getMatNr()) {
+								cout << "Der folgende Student wurde geloescht:\n\n" << endl;
+								it->ausgabe();
+								studentenListe.erase(it);
+								didDeletion = true;
+								break;
+							}
+						}
+						if (!didDeletion)
+							throw 99;
 					} catch (int e) {
 						if (e == 99) {
 							cout << "Der Student wurde nicht gefunden...\n\n" << endl;
@@ -184,7 +196,7 @@ int main()
 
 					student = Student(matNr, name, geburtstag, adresse);
 
-					studentenListe.pushFront(student);
+					studentenListe.insert(studentenListe.begin(), student);
             	}
 
                 break;
