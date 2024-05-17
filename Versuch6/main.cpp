@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -19,13 +20,54 @@ int main()
     Student student;
 
     char abfrage;
-    std::cout << "Wollen Sie die Liste selbst fuellen? (j)/(n) ";
+//    std::cout << "Wollen Sie die Liste selbst fuellen? (j)/(n) ";
+    std::cout << "Wollen Sie Daten aus einer Datei einlesen? (j)/(n) ";
 
 //    abfrage = 'n';
 
     std::cin >> abfrage;
     std::cin.ignore(10, '\n');
+    if (abfrage == 'j') {
+    	cout << "Geben sie nun Bitte den Dateinamen an. (ENTER für 'studenten.txt)'";
 
+    	string dateiname;
+        getline(std::cin, dateiname);    // ganze Zeile einlesen inklusive aller Leerzeichen
+
+        if (dateiname.empty()) dateiname = "studenten.txt";
+
+        ifstream eingabe(dateiname);
+
+        if (!eingabe)
+        {
+        	cout << " Fehler beim Oeffnen der Datei !";
+        	exit(1) ;
+        }
+
+
+		int matNr;
+		string name;
+		string geburtsdatum;
+		string adresse;
+
+		eingabe >> matNr;
+
+		while (!eingabe.eof())
+        {
+        	eingabe.ignore(1, '\n');
+        	getline(eingabe , name);
+        	getline(eingabe , geburtsdatum);
+        	getline(eingabe , adresse);
+
+        	student = Student(matNr, name, geburtsdatum, adresse);
+			studentenListe.push_back(student);
+			student.ausgabe();
+
+			eingabe >> matNr;
+        }
+
+
+    };
+/*
     if (abfrage != 'j')
     {
         student = Student(34567, "Harro Simoneit", "19.06.1971", "Am Markt 1");
@@ -39,7 +81,7 @@ int main()
         student = Student(23456, "Walter Rodenstock", "15.10.1963", "W�llnerstr.9");
         studentenListe.push_back(student);
     }
-
+*/
     do
     {
         std::cout << "\nMenue:" << std::endl
@@ -50,6 +92,8 @@ int main()
                   << "(4): Datenbank in umgekehrter Reihenfolge ausgeben" << std::endl
                   << "(5): Datenelement loeschen" << std::endl
                   << "(6): Datenelement vorne hinzufügen" << std::endl
+                  << "(7): Datenelement vorne loeschen" << std::endl
+                  << "(8): Daten aus einer Datei einlesen" << std::endl
                   << "(0): Beenden" << std::endl;
 
         std::cin >> abfrage;

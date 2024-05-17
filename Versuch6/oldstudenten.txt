@@ -1,0 +1,24 @@
+34567
+Harro Simoneit
+19.06.1971
+Am Markt 1
+74567
+Vera Schmitt
+23.07.1982
+Gartenstr. 23
+12345
+Siggi Baumeister
+23.04.1983
+Ahornstr.55
+64567
+Paula Peters
+9.01.1981
+Weidenweg 12
+23456
+Walter Rodenstock
+15.10.1963
+Wuellnerstr.9
+98765
+Tobias Mueller
+21.07.1985
+Weidenweg 15
