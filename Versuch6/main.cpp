@@ -14,6 +14,23 @@
 
 using namespace std;
 
+
+/**
+ * Function to check whether a student exists
+ *
+ * @param studentenListe A vector of Students
+ * @param matNr The matNr of the Student, which should be checked
+ */
+bool studentExists(vector<Student>* studentenListe, unsigned int matNr) {
+
+	for (const Student& i : *studentenListe) {
+		if (i.getMatNr() == matNr) return true;
+	}
+
+	return false;
+}
+
+
 int main()
 {
     vector<Student> studentenListe;
@@ -92,8 +109,9 @@ int main()
                   << "(4): Datenbank in umgekehrter Reihenfolge ausgeben" << std::endl
                   << "(5): Datenelement loeschen" << std::endl
                   << "(6): Datenelement vorne hinzufügen" << std::endl
-                  << "(7): Datenelement vorne loeschen" << std::endl
+                  << "(7): ?? Datenelement vorne loeschen" << std::endl
                   << "(8): Daten aus einer Datei einlesen" << std::endl
+                  << "(9): Daten in eine Datei abspeichern" << std::endl
                   << "(0): Beenden" << std::endl;
 
         std::cin >> abfrage;
@@ -188,8 +206,6 @@ int main()
 //					matNrLoeschen = 34567;
 					cin >> matNrLoeschen;
 
-					cout << "hahahahahah lol " << endl;
-
 					try {
 						int didDeletion = false;
 
@@ -244,6 +260,139 @@ int main()
             	}
 
                 break;
+
+            // Daten aus einer Datei einlesen
+			case '8':
+				{
+					bool mergeData = false;
+					if(!studentenListe.empty())
+					{
+						cout << "Es sind bereits Daten vorhanden. Sollen diese:" << endl
+								<< "(1) Gelöscht werden" << endl
+								<< "(2) In die Datei 'tempStudents.txt' gespeichert, und dann lokal gelöscht" << endl
+								<< "(3) Mit den einzulesenden Dateien gemerged werden (hierbei haben die vorhandenen Dateien Priorität)" << endl << endl
+								<< "(Bei Falscheingabe ist Option (2) Standard)" << endl;
+
+						std::cin >> abfrage;
+						std::cin.ignore(10, '\n');
+
+						switch (abfrage)
+						{
+
+							case '1':
+								studentenListe.clear();
+								break;
+
+
+							case '3':
+								mergeData = true;
+								break;
+							// CASE '2'
+							default:
+								ofstream ausgabe;
+								ausgabe.open("tempStudents.txt");
+
+
+								for(const Student& i : studentenListe) {
+									ausgabe << i.getMatNr() << endl;
+									ausgabe << i.getName() << endl;
+									ausgabe << i.getGeburtstag() << endl;
+									ausgabe << i.getAdresse() << endl;
+								}
+
+								ausgabe.close();
+
+								studentenListe.clear();
+								break;
+						}
+
+					}
+
+					cout << "Geben sie nun Bitte den Dateinamen an. (ENTER für 'studenten.txt)'";
+
+					string dateiname;
+					getline(std::cin, dateiname);    // ganze Zeile einlesen inklusive aller Leerzeichen
+
+					if (dateiname.empty()) dateiname = "studenten.txt";
+
+					ifstream eingabe(dateiname);
+
+					if (!eingabe)
+					{
+						cout << " Fehler beim oeffnen der Datei !";
+						exit(1) ;
+					}
+
+
+					int matNr;
+					string name;
+					string geburtsdatum;
+					string adresse;
+
+					eingabe >> matNr;
+
+					while (!eingabe.eof())
+					{
+						eingabe.ignore(1, '\n');
+						getline(eingabe , name);
+						getline(eingabe , geburtsdatum);
+						getline(eingabe , adresse);
+
+						student = Student(matNr, name, geburtsdatum, adresse);
+
+						if (mergeData && studentExists(&studentenListe, matNr)) {
+							cout << "Folgender Student wurde nicht eingefügt, da die Matrikelnummer bereits existiert: " << endl;
+
+						} else {
+							studentenListe.push_back(student);
+							cout << "Folgender Student wurde eingefügt: " << endl;
+						}
+
+						student.ausgabe();
+
+						eingabe >> matNr;
+					}
+
+				}
+				break;
+
+            // Daten in eine Datei speichern
+			case '9':
+				{
+					if(studentenListe.empty())
+					{
+						cout << "Es sind keine Daten vorhanden, die abgespeichert werden könnten." << endl;
+
+						break;
+					}
+
+					cout << "Geben sie nun Bitte den Dateinamen an. (ENTER für 'savedStudenten.txt)'";
+
+					string dateiname;
+					getline(std::cin, dateiname);    // ganze Zeile einlesen inklusive aller Leerzeichen
+
+					if (dateiname.empty()) dateiname = "savedStudenten.txt";
+
+					ofstream ausgabe;
+					ausgabe.open(dateiname);
+
+					if (!ausgabe)
+					{
+						cout << " Fehler beim oeffnen der Datei !";
+						exit(1) ;
+					}
+
+					for(const Student& i : studentenListe) {
+						ausgabe << i.getMatNr() << endl;
+						ausgabe << i.getName() << endl;
+						ausgabe << i.getGeburtstag() << endl;
+						ausgabe << i.getAdresse() << endl;
+					}
+
+					ausgabe.close();
+
+				}
+				break;
 
             case '0':
                 std::cout << "Das Programm wird nun beendet";
