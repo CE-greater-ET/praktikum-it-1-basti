@@ -61,6 +61,9 @@ int main()
     	steps++;
     }
 
+    cout << "ENDE ---" << endl << endl;
+    // Zusazuaufgabe
+
     steps = 0;
     ROTIEREN_PRO_SCHRITT = 0.0001;
     rotierterWinkel = 0.0;

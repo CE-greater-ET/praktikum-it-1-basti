@@ -36,6 +36,12 @@ void Liste::pushBack(Student pData)
     }
 }
 
+/**
+ * @brief Hinzufuegen eines neuen Listenelements am Anfang der Liste.
+ *
+ * @param pData Zeiger auf ein Objekt der Klasse Student
+ * @return void
+ */
 void Liste::pushFront(Student pData)
 {
     ListenElement* neuesElement = new ListenElement(pData, nullptr, nullptr);
@@ -76,6 +82,11 @@ void Liste::popFront()
     }
 }
 
+/**
+ * @brief Entfernen eines Listenelements am Ende der Liste.
+ *
+ * @return void
+ */
 void Liste::popBack()
 {
     ListenElement* cursor = back;
@@ -149,6 +160,14 @@ void Liste::ausgabeRueckwaerts() const
     }
 }
 
+
+/**
+ * @brief Methode, die einen Studenten mit einer Matrikelnummer loescht und zurückgibt
+ *
+ *
+ * @param matNr Die Matrikelnummer des Studenten, der gelöscht werden soll
+ * @return Student Den Studenten der gelöscht wurde
+ */
 Student Liste::deleteMatNr(unsigned int matNr) {
 
 

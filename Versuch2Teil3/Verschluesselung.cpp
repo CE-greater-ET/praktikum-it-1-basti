@@ -56,8 +56,8 @@ int main()
 
 
 	char lookup[2][26] = {
-			{'A'},
-			{'Q'},
+			{''},
+			{''},
 	};
 
 	for (int i = 0; i < 26; i++) {

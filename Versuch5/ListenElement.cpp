@@ -45,11 +45,18 @@ void ListenElement::setPrevious(ListenElement* pPrevious)
     previous = pPrevious;
 }
 
+/**
+ * @brief Setzt den nextPointer des Listenelements auf den nullptr
+ */
 void ListenElement::eraseNext()
 {
     next = nullptr;
 }
 
+
+/**
+ * @brief Setzt den previousPointer des Listenelements auf den nullptr
+ */
 void ListenElement::erasePrevious()
 {
     previous = nullptr;

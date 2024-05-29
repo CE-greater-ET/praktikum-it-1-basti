@@ -6,6 +6,8 @@
 #define STUDENT_H_
 
 #include <string>
+#include <stdlib.h>
+
 
 class Student
 {

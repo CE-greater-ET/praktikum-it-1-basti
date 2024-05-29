@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 
 #include "Liste.h"
 #include "Student.h"

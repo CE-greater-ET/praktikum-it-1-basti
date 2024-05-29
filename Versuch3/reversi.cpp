@@ -296,6 +296,13 @@ void zugAusfuehren(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpiel
  *
  *
  */
+/**
+ * @brief Methode, um die Anzahl möglicher Züge zu überprüfen
+ *
+ * @param spielfeld Das Spielfeld
+ * @param aktuellerSpieler Der Spieler, dessen Züge geprüft werden sollen
+ * @return int Die Anzahl an möglichen Zügen
+ */
 int moeglicheZuege(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpieler)
 {
     // Hier erfolgt jetzt Ihre Implementierung ...
@@ -337,7 +344,13 @@ int moeglicheZuege(const int spielfeld[GROESSE_Y][GROESSE_X], const int aktuelle
 	return possibleMoves;
 }
 
-
+/**
+ * @brief Eine Methode, um einen Zug manuell über die Konsole auszugeben
+ *
+ * @param spielfeld Das Spielfeld
+ * @param aktuellerSpieler Der Spieler, der nun von einem Menschen gesteuert werden soll
+ * @return bool Ob ein Zug ausgeführt wurde
+ */
 bool menschlicherZug(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpieler)
 {
     if (moeglicheZuege(spielfeld, aktuellerSpieler) == 0)
@@ -382,7 +395,11 @@ bool menschlicherZug(int spielfeld[GROESSE_Y][GROESSE_X], const int aktuellerSpi
     return true;
 }
 
-
+/**
+ * @brief Hilfsmethode, um ein Spiel mit zwei Spielern (von beliebigem Spielertyp) zu starten
+ *
+ * @param spielerTyp Das SpielerTyp Array mit 2 Einträgen (Spieler1, spieler2)
+ */
 void spielen(const int spielerTyp[2])
 {
     int spielfeld[GROESSE_Y][GROESSE_X];
@@ -515,6 +532,8 @@ int testmain()
 
 
 int main(){
+	testmain();
+	/*
 	int testlist[4][4] =
 		{
 			{1,2,3,4},
@@ -523,6 +542,7 @@ int main(){
 			{13,14,15,16}
 		};
 	cout << testlist[2][-1] << endl;
+	 */
 
 	kimain();
 	return 0;

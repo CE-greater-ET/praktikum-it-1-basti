@@ -97,6 +97,17 @@ bool aufSpielfeldTest(const int posX, const int posY, const bool richtig, const 
 }
 
 
+/**
+ * @brief Methode, um zu testen ob ein Zug gültig ist
+ *
+ * @param eingabeFeld
+ * @param spieler
+ * @param posX Index Spalte
+ * @param posY Index Zeile
+ * @param richtig
+ * @param testNummer
+ * @return
+ */
 bool zugGueltigTest(const int eingabeFeld[GROESSE_Y][GROESSE_X], const int spieler, const int posX,
                      const int posY, const bool richtig, const int testNummer)
 {
