@@ -7,6 +7,8 @@
 
 #include <string>
 
+using namespace std;
+
 class Student
 {
 public:
@@ -16,12 +18,23 @@ public:
     std::string getName() const;
     std::string getGeburtstag() const;
     std::string getAdresse() const;
-    void ausgabe() const;
+    void ausgabe() const { ausgabe(cout); } ;
+    void ausgabe(ostream& outStream) const;
+
+    bool operator==(const Student& otherStudent) const;
+    bool operator>(const Student& otherStudent) const;
+    bool operator<(const Student& otherStudent) const;
+    bool operator>=(const Student& otherStudent) const;
+    bool operator<=(const Student& otherStudent) const;
 private:
     unsigned int matNr;
     std::string name;
     std::string geburtstag;
     std::string adresse;
 };
+
+
+ostream& operator<<(ostream& outStream, const Student& student);
+
 
 #endif

@@ -9,6 +9,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "Student.h"
 
@@ -112,6 +113,7 @@ int main()
                   << "(7): ?? Datenelement vorne loeschen" << std::endl
                   << "(8): Daten aus einer Datei einlesen" << std::endl
                   << "(9): Daten in eine Datei abspeichern" << std::endl
+                  << "(S): Datenelemente in aufsteigender Reihenfolge sortieren" << std::endl
                   << "(0): Beenden" << std::endl;
 
         std::cin >> abfrage;
@@ -206,30 +208,17 @@ int main()
 //					matNrLoeschen = 34567;
 					cin >> matNrLoeschen;
 
-					try {
-						int didDeletion = false;
+					Student tempStudent(matNrLoeschen, "", "", "");
+					vector<Student>::iterator it = find(studentenListe.begin(), studentenListe.end(), tempStudent);
 
-						for (vector<Student>::iterator it = studentenListe.begin() ; it != studentenListe.end(); ++it) {
-							if (matNrLoeschen == it->getMatNr()) {
-								cout << "Der folgende Student wurde geloescht:\n\n" << endl;
-								it->ausgabe();
-								studentenListe.erase(it);
-								didDeletion = true;
-								break;
-							}
-						}
-						if (!didDeletion)
-							throw 99;
-					} catch (int e) {
-						if (e == 99) {
-							cout << "Der Student wurde nicht gefunden...\n\n" << endl;
-							break;
-						} else {
-							cout << "fehler nr " << e << endl;
-							throw e;
-						}
-
+					if (it == studentenListe.end()) {
+						cout << "Der Student wurde nicht gefunden...\n\n" << endl;
+						break;
 					}
+					cout << "Der folgende Student wurde geloescht:\n\n" << endl;
+					it->ausgabe();
+					studentenListe.erase(it);
+
             	}
                 break;
 
@@ -392,6 +381,19 @@ int main()
 					ausgabe.close();
 
 				}
+				break;
+
+
+			case 'S':
+
+				sort(studentenListe.begin(), studentenListe.end());
+
+				cout << "Daten nach dem sortieren: " << endl << endl;
+
+				for(const Student& i : studentenListe) {
+					cout << i << endl;
+				}
+
 				break;
 
             case '0':
