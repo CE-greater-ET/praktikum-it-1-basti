@@ -128,7 +128,7 @@ void Datum::eingabe(std::istream& in)
 }
 
 
-// �berladener Subtraktions-Operator
+// Überladener Subtraktions-Operator
 int Datum::operator-(const Datum datum) const
 {
     int tagDiff = tag - datum.tag;
@@ -156,11 +156,11 @@ Datum Datum::operator+(const int anzahl_Tage) const
     //Mehrere Monate weiterspringen
     while (tagNeu > tageMonat[monatNeu-1])
     {
-        //Monat erh�hen und die jeweiligen Tage abziehen
+        //Monat erhöhen und die jeweiligen Tage abziehen
         tagNeu -= tageMonat[monatNeu-1];
         monatNeu++;
 
-        // Monat darf nicht gr��er als 12 werden
+        // Monat darf nicht größer als 12 werden
         if (monatNeu > 12)
         {
             monatNeu -= 12;
@@ -180,14 +180,14 @@ Datum& Datum::operator=(Datum& Datum)
     return *this;
 }
 
-//Streamoperator f�r ostream
+//Streamoperator für ostream
 std::ostream& operator<<(std::ostream& out, const Datum& datum)
 {
     datum.ausgabe(out);
     return out;
 }
 
-//Streamoperator f�r istream
+//Streamoperator für istream
 std::istream& operator >> (std::istream& in, Datum& datum)
 {
     datum.eingabe(in);
