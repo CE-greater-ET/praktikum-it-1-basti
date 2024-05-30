@@ -29,6 +29,15 @@ Sparte: Computerzeitschrift
 	cout << "Sparte: " << this->sparte << endl;
 }
 
+bool Magazin::ausleihen(Person person, Datum ausleihdatum) {
+	if ((ausleihdatum - this->erscheinungsdatum)  <= 0) {
+		cout << "Die neueste Ausgabe von Magazinen dürfen nicht ausgeliehen werden." << endl;
+		return false;
+	} else {
+		return Medium::ausleihen(person, ausleihdatum);
+	}
+}
+
 
 Magazin::~Magazin() {
 	// TODO Auto-generated destructor stub

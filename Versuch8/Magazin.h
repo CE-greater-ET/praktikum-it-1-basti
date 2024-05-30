@@ -18,6 +18,8 @@ public:
 	Magazin(std::string initTitel, Datum initDatumAusgabe, std::string initSparte);
 	virtual ~Magazin();
 
+
+	bool ausleihen(Person person, Datum ausleihdatum) override;
 	void ausgabe() const override;
 
 private:

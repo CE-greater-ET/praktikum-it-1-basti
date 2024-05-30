@@ -17,6 +17,7 @@ public:
 	DVD(std::string initTitel, int initAltersfreigabe, std::string initGenre);
 	virtual ~DVD();
 
+	bool ausleihen(Person person, Datum ausleihdatum) override;
 	void ausgabe() const override;
 
 private:

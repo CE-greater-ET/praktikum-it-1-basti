@@ -49,7 +49,7 @@ public:
      * \return bool: true,  wenn die Ausleihbeschr�nkungen erf�llt sind und das Medium ausgeliehen werden kann
      *               false, wenn die Ausleihbeschr�nkungen nicht erf�llt sind und das Medium nicht ausgeliehen werden kann
      */
-    bool ausleihen(Person person, Datum ausleihdatum);
+    virtual bool ausleihen(Person person, Datum ausleihdatum);
 
     /*!
      * @brief Gibt ein Medium in die B�cherei zur�ck

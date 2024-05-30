@@ -13,6 +13,15 @@ DVD::DVD(std::string initTitel, int initAltersfreigabe, std::string initGenre):
 	genre(initGenre) {
 }
 
+bool DVD::ausleihen(Person person, Datum ausleihdatum) {
+	if ((ausleihdatum - person.getGeburtsdatum())  < (this->altersfreigabe * 12)) {
+		cout << "Die ausleihende Person ist nicht alt genug für diese DVD." << endl;
+		return false;
+	} else {
+		return Medium::ausleihen(person, ausleihdatum);
+	}
+}
+
 void DVD::ausgabe() const {
 	/*
 ID: 2

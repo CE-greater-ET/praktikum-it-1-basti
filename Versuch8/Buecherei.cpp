@@ -180,6 +180,10 @@ void fuelleDatenbank(std::vector<Medium*>& medien)
 
         neuesMedium = new Buch("Huckleberry Finn", "Mark Twain");
         medien.push_back(neuesMedium);
+
+        neuesMedium = new Magazin("BRANDNEU!", Datum(), "Ghostwriter");
+		medien.push_back(neuesMedium);
+
     }
 #else
     {
