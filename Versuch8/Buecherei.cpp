@@ -17,7 +17,7 @@
  * Bei setzen auf false ist nur die Basisklasse Medium vorhanden
  */
  
-#define UNTERKLASSENVORHANDEN false
+#define UNTERKLASSENVORHANDEN true
 
 #include <iostream>
 #include <string>
@@ -175,7 +175,7 @@ void fuelleDatenbank(std::vector<Medium*>& medien)
         neuesMedium = new Magazin("Chip", Datum(1, 12, 2022), "Computer");
         medien.push_back(neuesMedium);
 
-        neuesMedium = new DVD("Fluch der Karibik", 12, "Actionkom�die");
+        neuesMedium = new DVD("Fluch der Karibik", 12, "Actionkomödie");
         medien.push_back(neuesMedium);
 
         neuesMedium = new Buch("Huckleberry Finn", "Mark Twain");
@@ -286,7 +286,7 @@ void mediumHinzufuegen(std::vector<Medium*>& medien)
 
             // Ung�ltige Eingabe
             default:
-                std::cout << "Ung�ltige Eingabe!" << std::endl;
+                std::cout << "Ung�ütige Eingabe!" << std::endl;
                 break;
         }
     }
