@@ -184,6 +184,10 @@ void fuelleDatenbank(std::vector<Medium*>& medien)
         neuesMedium = new Magazin("BRANDNEU!", Datum(), "Ghostwriter");
 		medien.push_back(neuesMedium);
 
+		// Folgendes würde nicht funktionieren, da Medium rein virutell ist!
+//        neuesMedium = new Medium("BRANDNEU!");
+//		medien.push_back(neuesMedium);
+
     }
 #else
     {
