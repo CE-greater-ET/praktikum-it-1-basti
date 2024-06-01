@@ -15,7 +15,7 @@ public:
 	Buch(std::string initTitel, std::string initAutor);
 	virtual ~Buch();
 
-	void ausgabe() const override;
+	void ausgabe(ostream& outStream = cout) const override;
 
 private:
 	Person autor;

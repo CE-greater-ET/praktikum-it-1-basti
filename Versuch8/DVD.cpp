@@ -22,7 +22,7 @@ bool DVD::ausleihen(Person person, Datum ausleihdatum) {
 	}
 }
 
-void DVD::ausgabe() const {
+void DVD::ausgabe(ostream& outStream) const {
 	/*
 ID: 2
 Titel: Der unsichtbare Dritte
@@ -30,9 +30,9 @@ Status: Medium ist zurzeit nicht verliehen.
 FSK: ab 12 Jahre
 Genre: Action, Krimi
 	 */
-	Medium::ausgabe();
-	cout << "FSK: ab " << this->altersfreigabe << " Jahre" << endl;
-	cout << "Genre: " << this->genre << endl;
+	Medium::ausgabe(outStream);
+	outStream << "FSK: ab " << this->altersfreigabe << " Jahre" << endl;
+	outStream << "Genre: " << this->genre << endl;
 }
 
 DVD::~DVD() {

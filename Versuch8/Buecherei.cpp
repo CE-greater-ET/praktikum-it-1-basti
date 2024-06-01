@@ -41,6 +41,7 @@ void mediumEntfernen(std::vector<Medium*>& medien);
 void mediumAusleihen(std::vector<Medium*>& medien, Datum aktuellesDatum);
 void mediumZurueckgeben(std::vector<Medium*>& medien);
 void alleMedienAusgeben(std::vector<Medium*>& medien);
+void alleAusgeliehenenAusgeben(std::vector<Medium*>& medien);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +75,7 @@ int main()
                   << "(3): Datenbank ausgeben" << std::endl
                   << "(4): Ein Medium verleihen" << std::endl
                   << "(5): Ein Medium zurücknehmen" << std::endl
+				  << "(6): Alle ausgegebenen Medien ausgeben" << endl
                   << "(7): Beenden" << std::endl;
 
         // Einlesen der Abfrage
@@ -127,6 +129,15 @@ int main()
                 mediumZurueckgeben(medien);
                 break;
             }
+
+            ////////////////////////////////////////
+			// Alle ausgeliehenen Medien ausgeben //
+			////////////////////////////////////////
+			case '6':
+			{
+				alleAusgeliehenenAusgeben(medien);
+				break;
+			}
 
             case '7':
             {
@@ -424,5 +435,28 @@ void alleMedienAusgeben(std::vector<Medium*>& medien)
     {
         std::cout << "*************************************************************" << std::endl;
         medien[index]->ausgabe();
+    }
+}
+
+//////////////////////////////////////////////////////////////////
+// Funktion gibt alle ausgeliehenen Medien in der Datenbank aus //
+//////////////////////////////////////////////////////////////////
+void alleAusgeliehenenAusgeben(std::vector<Medium*>& medien)
+{
+    std::cout << "Ausgeliehene Medien in der Bücherei:" << std::endl;
+
+    bool einsAusgeliehen = false;
+    for (unsigned int index = 0; index < medien.size(); index++)
+    {
+    	if (medien[index]->getStatus()) {
+			std::cout << "*************************************************************" << std::endl;
+			cout << *(medien[index]) << endl;
+			einsAusgeliehen = true;
+    	}
+    }
+    if (!einsAusgeliehen) {
+		std::cout << "*************************************************************" << std::endl;
+		cout << "Kein Medium ist momentan ausgeliehen!" << endl;
+		std::cout << "*************************************************************" << std::endl;
     }
 }

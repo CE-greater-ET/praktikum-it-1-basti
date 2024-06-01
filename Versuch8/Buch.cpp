@@ -16,11 +16,11 @@ Buch::Buch(std::string initTitel, std::string initAutor):
 
 }
 
-void Buch::ausgabe() const {
+void Buch::ausgabe(ostream& outStream) const {
 
-	Medium::ausgabe();
+	Medium::ausgabe(outStream);
 
-	cout << "Name des Autors: " << this->autor.getName() << endl;
+	outStream << "Name des Autors: " << this->autor.getName() << endl;
 
 }
 

@@ -16,7 +16,7 @@ Magazin::Magazin(std::string initTitel, Datum initDatumAusgabe, std::string init
 
 }
 
-void Magazin::ausgabe() const {
+void Magazin::ausgabe(ostream& outStream) const {
 	/*
 ID: 1
 Titel: c’t - Magazin für Computertechnik
@@ -24,9 +24,9 @@ Status: Medium ist zurzeit nicht verliehen.
 Ausgabe: 01/04/2018
 Sparte: Computerzeitschrift
 	 */
-	Medium::ausgabe();
-	cout << "Ausgabe: " << this->erscheinungsdatum << endl;
-	cout << "Sparte: " << this->sparte << endl;
+	Medium::ausgabe(outStream);
+	outStream << "Ausgabe: " << this->erscheinungsdatum << endl;
+	outStream << "Sparte: " << this->sparte << endl;
 }
 
 bool Magazin::ausleihen(Person person, Datum ausleihdatum) {

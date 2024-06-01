@@ -11,6 +11,8 @@
 #include "Datum.h"
 #include "Person.h"
 
+using namespace std;
+
 /*! \brief Basisklasse f�r s�mtliche Medien
 *
 * Diese Klasse stellt eine Basisklasse f�r Objekte dar, die Medien beschreiben
@@ -38,7 +40,7 @@ public:
      *
      * Funktion gibt alle Informationen eines Mediums auf der Konsole aus
      */
-    virtual void ausgabe() const = 0; // rein virutell - besitzt allerdings trotzdem eine implementierung
+    virtual void ausgabe(ostream& outStream = cout) const = 0; // rein virutell - besitzt allerdings trotzdem eine implementierung
 
     /*!
      * @brief Ausleihen-Funktion
@@ -62,6 +64,14 @@ public:
      * \return int: gibt die ID des Mediums zur�ck
      */
     unsigned int getID();
+
+    /*!
+     * @brief Ob ein Medium ausgeliehen ist
+     *
+     * @return bool:	true, wenn ausgeliehen
+     * 					false, wenn nicht ausgeliehen
+     */
+    bool getStatus();
 
 protected:
     /*!
@@ -95,4 +105,8 @@ protected:
     Person personAusgeliehen;
 
 };
+
+
+ostream& operator<<(ostream& outStream, const Medium& ausgabeMedium);
+
 #endif

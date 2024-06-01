@@ -20,7 +20,7 @@ public:
 
 
 	bool ausleihen(Person person, Datum ausleihdatum) override;
-	void ausgabe() const override;
+	void ausgabe(ostream& outStream = cout) const override;
 
 private:
 	Datum erscheinungsdatum;

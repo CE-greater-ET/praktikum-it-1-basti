@@ -10,6 +10,8 @@
 #include <string>
 #include <iostream>
 
+using namespace std;
+
 unsigned int Medium::currentID = 1;
 
 Medium::Medium(std::string initTitel)
@@ -24,18 +26,18 @@ Medium::~Medium(void)
 }
 
 
-void Medium::ausgabe() const
+void Medium::ausgabe(ostream& outStream) const
 {
-    std::cout << "ID: " << ID << std::endl;
-    std::cout << "Titel: " << titel << std::endl;
+	outStream << "ID: " << ID << std::endl;
+	outStream << "Titel: " << titel << std::endl;
 
     if (status)
     {
-        std::cout << "Status : Das Medium ist seit dem " << datumAusgeliehen << " an " << personAusgeliehen.getName() << " ausgeliehen." << std::endl;
+    	outStream << "Status : Das Medium ist seit dem " << datumAusgeliehen << " an " << personAusgeliehen.getName() << " ausgeliehen." << std::endl;
     }
     else
     {
-        std::cout << "Status: Medium ist zurzeit nicht verliehen." << std::endl;
+    	outStream << "Status: Medium ist zurzeit nicht verliehen." << std::endl;
     }
 }
 
@@ -72,4 +74,16 @@ void Medium::zurueckgeben()
 unsigned int Medium::getID()
 {
     return ID;
+}
+
+bool Medium::getStatus()
+{
+    return status;
+}
+
+
+ostream& operator<<(ostream& outStream, const Medium& ausgabeMedium) {
+
+	ausgabeMedium.ausgabe(outStream);
+	return outStream;
 }
