@@ -1,0 +1,8 @@
+/Users/bastian/Informatik/Streetplanner/build/Qt_6_6_3_for_macOS-Debug/CMakeFiles/Streetplanner.dir
+/Users/bastian/Informatik/Streetplanner/build/Qt_6_6_3_for_macOS-Debug/CMakeFiles/edit_cache.dir
+/Users/bastian/Informatik/Streetplanner/build/Qt_6_6_3_for_macOS-Debug/CMakeFiles/rebuild_cache.dir
+/Users/bastian/Informatik/Streetplanner/build/Qt_6_6_3_for_macOS-Debug/CMakeFiles/list_install_components.dir
+/Users/bastian/Informatik/Streetplanner/build/Qt_6_6_3_for_macOS-Debug/CMakeFiles/install.dir
+/Users/bastian/Informatik/Streetplanner/build/Qt_6_6_3_for_macOS-Debug/CMakeFiles/install/local.dir
+/Users/bastian/Informatik/Streetplanner/build/Qt_6_6_3_for_macOS-Debug/CMakeFiles/install/strip.dir
+/Users/bastian/Informatik/Streetplanner/build/Qt_6_6_3_for_macOS-Debug/CMakeFiles/Streetplanner_autogen.dir

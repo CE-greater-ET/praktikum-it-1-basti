@@ -1,0 +1,70 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-63850c138d89d98623c6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Streetplanner",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Streetplanner::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Streetplanner-Debug-0b5cd9cdcfe14b5f7582.json",
+					"name" : "Streetplanner",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Streetplanner_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Streetplanner_autogen-Debug-f2cdd1d4d103738a7b4f.json",
+					"name" : "Streetplanner_autogen",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/bastian/Informatik/Streetplanner/build/Qt_6_6_3_for_macOS-Debug",
+		"source" : "/Users/bastian/Informatik/Streetplanner"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
