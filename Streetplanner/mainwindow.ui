@@ -6,23 +6,87 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>794</width>
+    <height>453</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Streetplanner</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="0,1" columnminimumwidth="200,0">
+    <property name="spacing">
+     <number>-1</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="input_label">
+      <property name="text">
+       <string>Ihre Eingabe</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLineEdit" name="test_lineEdit">
+      <property name="placeholderText">
+       <string>Ihre Eingabe</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="test_pushButton">
+      <property name="toolTip">
+       <string>Testet, ob die Eingabe ein Text oder eine Zahl ist</string>
+      </property>
+      <property name="text">
+       <string>DRÜCKEN</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="1" rowspan="5">
+     <widget class="QGraphicsView" name="graphicsView"/>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>42</height>
+     <width>794</width>
+     <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuStreetplanner">
+    <property name="title">
+     <string>Streetplanner</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menutest2">
+    <property name="title">
+     <string>test2</string>
+    </property>
+   </widget>
+   <addaction name="menuStreetplanner"/>
+   <addaction name="menutest2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
