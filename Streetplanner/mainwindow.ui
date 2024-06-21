@@ -64,8 +64,16 @@
     <item row="0" column="1" rowspan="5">
      <widget class="QGraphicsView" name="graphicsView"/>
     </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="testCityButton">
+      <property name="text">
+       <string>Draw Test City</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -75,20 +83,68 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuStreetplanner">
+   <widget class="QMenu" name="menufi">
     <property name="title">
-     <string>Streetplanner</string>
+     <string>File</string>
     </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menutest2">
+   <widget class="QMenu" name="menuScene">
     <property name="title">
-     <string>test2</string>
+     <string>Scene</string>
     </property>
+    <addaction name="actionClear_Scene"/>
    </widget>
-   <addaction name="menuStreetplanner"/>
-   <addaction name="menutest2"/>
+   <widget class="QMenu" name="menuInfo">
+    <property name="title">
+     <string>Info</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menufi"/>
+   <addaction name="menuScene"/>
+   <addaction name="menuInfo"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+E</string>
+   </property>
+  </action>
+  <action name="actionClear_Scene">
+   <property name="text">
+    <string>Clear Scene</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S, Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "./city.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QRandomGenerator>
@@ -8,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , graphScene(new QGraphicsScene)
+    , randGen(QRandomGenerator(23456))
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(this->graphScene);
@@ -40,11 +42,8 @@ void MainWindow::on_test_pushButton_clicked()
         qDebug() << QString("TEXT '%1' IST EINGEGEBEN (WOHOO)").arg(currText);
     }
 
-    QRandomGenerator randGen;
-    randGen.seed(23456);
-
-    int randX = randGen.bounded(0,9);
-    int randY = randGen.bounded(0,9);
+    int randX = this->randGen.bounded(0,9);
+    int randY = this->randGen.bounded(0,9);
 
     qDebug() << randX;
     qDebug() << randY;
@@ -66,5 +65,41 @@ void MainWindow::on_test_pushButton_clicked()
 
 
     infoBox.exec();
+}
+
+// Sowohl Option+E, als auch CMD+Q triggered diese Funktion
+void MainWindow::on_actionExit_triggered()
+{
+    // qDebug() << "EXITED";
+    close();
+}
+
+
+void MainWindow::on_actionClear_Scene_triggered()
+{
+    this->graphScene->clear();
+}
+
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QMessageBox::about(this, "Über", "Dies ist ein Programm aus dem Modul PI1 an der RWTH Aachen! \n\n'Made' by OnPoint");
+}
+
+
+void MainWindow::on_testCityButton_clicked()
+{
+    int randX = this->randGen.bounded(0,200);
+    int randY = this->randGen.bounded(0,200);
+    QString xStr;
+    xStr.setNum(randX);
+    QString yStr;
+    yStr.setNum(randY);
+
+    City stadt1(QString("TestStadtX%1Y%2").arg(xStr, yStr), randX, randY);
+    City stadt2(QString("TestStadtX%2Y%1").arg(xStr, yStr), randY, randX);
+
+    stadt1.draw(*(this->graphScene));
+    stadt2.draw(*(this->graphScene));
 }
 
