@@ -5,7 +5,7 @@
 #include <QGraphicsScene>
 #include <QRandomGenerator>
 #include "map.h"
-#include "citydialog.h"
+#include "mapio.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -38,13 +38,16 @@ private slots:
 
     void on_addCity_button_clicked();
 
+    void on_fillMapButton_clicked();
+
 private:
     // OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
-    void mousePressEvent(QMouseEvent *event);
+    void mouseDoubleClickEvent(QMouseEvent *event);
 
 
     Ui::MainWindow *ui;
     QGraphicsScene *graphScene;
     Map *map;
+    MapIo *mapio;
 };
 #endif // MAINWINDOW_H

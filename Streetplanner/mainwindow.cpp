@@ -2,6 +2,8 @@
 #include "./ui_mainwindow.h"
 #include "./city.h"
 #include "./street.h"
+#include "citydialog.h"
+#include "mapionrw.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QRandomGenerator>
@@ -18,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , graphScene(new QGraphicsScene)
     , map(new Map)
+    , mapio(new MapIoNrw)
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(this->graphScene);
@@ -35,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 // OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
-void MainWindow::mousePressEvent(QMouseEvent *event){
+void MainWindow::mouseDoubleClickEvent(QMouseEvent *event){
     QGraphicsView *view = this->ui->graphicsView;
 
     int viewW = view->width();
@@ -52,11 +55,11 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
 
     CityDialog newDialog;
 
-    // newX > 0: rechts von linkem view Rand
-    // newY > 0: unter oberem view Rand
+    // ptOnView.x() > 0: rechts von linkem view Rand
+    // ptOnView.y() > 0: unter oberem view Rand
     // viewW > ptOnView.x(): Links von rechtem view Rand
     // viewH > ptOnView.y(): Über unterem view rand
-    if (newX > 0 && newY > 0 && viewW > ptOnView.x() && viewH > ptOnView.y()) {
+    if (ptOnView.x() > 0 && ptOnView.y() > 0 && viewW > ptOnView.x() && viewH > ptOnView.y()) {
         newDialog.setXYText(newX, newY);
 
         int success = newDialog.exec();
@@ -204,5 +207,12 @@ void MainWindow::on_addCity_button_clicked()
 
     this->map->draw(*(this->graphScene));
 
+}
+
+
+void MainWindow::on_fillMapButton_clicked()
+{
+    mapio->fillMap(*(this->map));
+    this->map->draw(*(this->graphScene));
 }
 

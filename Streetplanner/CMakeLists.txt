@@ -28,6 +28,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         abstractmap.cpp abstractmap.h
         street.h street.cpp
         citydialog.h citydialog.cpp citydialog.ui
+        mapio.cpp mapio.h mapionrw.cpp mapionrw.h
 
 
     )
