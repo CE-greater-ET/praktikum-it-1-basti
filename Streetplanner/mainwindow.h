@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QRandomGenerator>
+#include "map.h"
+#include "citydialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,9 +32,19 @@ private slots:
 
     void on_testCityButton_clicked();
 
+    void on_testMapButton_clicked();
+
+    void on_checkBox_toggled(bool checked);
+
+    void on_addCity_button_clicked();
+
 private:
+    // OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
+    void mousePressEvent(QMouseEvent *event);
+
+
     Ui::MainWindow *ui;
     QGraphicsScene *graphScene;
-    QRandomGenerator randGen;
+    Map *map;
 };
 #endif // MAINWINDOW_H

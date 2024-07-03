@@ -13,6 +13,9 @@ public:
 
     void draw(QGraphicsScene& scene) const;
 
+    int getX() const { return this->x; };
+    int getY() const { return this->y; };
+
 private:
     int x;
     int y;

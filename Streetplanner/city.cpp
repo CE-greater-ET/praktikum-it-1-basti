@@ -12,18 +12,20 @@ City::City(QString p_name, int p_x, int p_y):
 
 void City::draw(QGraphicsScene& scene) const {
 
-    QString xStr;
-    xStr.setNum(this->x);
+    //QString xStr;
+    //xStr.setNum(this->x);
 
-    QString yStr;
-    yStr.setNum(this->y);
+    //QString yStr;
+    //yStr.setNum(this->y);
 
-    qDebug() << QString("Stadt mit dem Namen %1 wird an X: %2 Y: %3 gemalt.").arg(this->name, xStr, yStr);
+    qDebug() << QString("Stadt mit dem Namen %1 wird an X: %2 Y: %3 gemalt.")
+                    .arg(this->name)
+                    .arg(this->x).arg(this->y);
     QPen pen ;
-    pen.setWidth (3) ;
+    pen.setWidth (5) ;
     pen.setColor (Qt::red );
 
-    scene.addRect(this->x, this->y, 3, 3, pen);
+    scene.addRect(this->x, this->y, 5, 5, pen);
     QGraphicsTextItem* text = new QGraphicsTextItem;
     text->setPos(this->x, this->y+3) ; // Position des Textes
     text->setPlainText(this->name); // Text

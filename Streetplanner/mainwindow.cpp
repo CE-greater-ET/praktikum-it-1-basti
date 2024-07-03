@@ -1,18 +1,71 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "./city.h"
+#include "./street.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QRandomGenerator>
+#include <QMouseEvent>
+#include <QGraphicsView>
+#include <QPoint>
+#include <QGraphicsItem>
+#include <QRect>
+#include <QSize>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , graphScene(new QGraphicsScene)
-    , randGen(QRandomGenerator(23456))
+    , map(new Map)
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(this->graphScene);
+    ui->graphicsView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+
+    setMouseTracking(true); // E.g. set in your constructor of your widget.
+
+    City *newCity = new City(
+        QString("CITY 0 0"),
+        0,
+        0
+        );
+    map->addCity(newCity);
+    map->draw(*(this->graphScene));
+}
+
+// OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
+void MainWindow::mousePressEvent(QMouseEvent *event){
+    QGraphicsView *view = this->ui->graphicsView;
+
+    int viewW = view->width();
+    int viewH = view->height();
+
+    QPoint ptOnView = view->mapFromParent(event->position().toPoint());
+    QPoint ptOnScene = view->mapToScene(ptOnView).toPoint();
+
+    qDebug() << ptOnView;
+
+    int newX = ptOnScene.x();
+    int newY = ptOnScene.y();
+
+
+    CityDialog newDialog;
+
+    // newX > 0: rechts von linkem view Rand
+    // newY > 0: unter oberem view Rand
+    // viewW > ptOnView.x(): Links von rechtem view Rand
+    // viewH > ptOnView.y(): Über unterem view rand
+    if (newX > 0 && newY > 0 && viewW > ptOnView.x() && viewH > ptOnView.y()) {
+        newDialog.setXYText(newX, newY);
+
+        int success = newDialog.exec();
+        if (!success) return;
+
+        City *newCity = newDialog.createCity();
+        this->map->addCity(newCity);
+        this->map->draw(*(this->graphScene));
+    }
 }
 
 MainWindow::~MainWindow()
@@ -42,8 +95,8 @@ void MainWindow::on_test_pushButton_clicked()
         qDebug() << QString("TEXT '%1' IST EINGEGEBEN (WOHOO)").arg(currText);
     }
 
-    int randX = this->randGen.bounded(0,9);
-    int randY = this->randGen.bounded(0,9);
+    int randX = QRandomGenerator::global()->bounded(0,9);
+    int randY = QRandomGenerator::global()->bounded(0,9);
 
     qDebug() << randX;
     qDebug() << randY;
@@ -89,8 +142,8 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_testCityButton_clicked()
 {
-    int randX = this->randGen.bounded(0,200);
-    int randY = this->randGen.bounded(0,200);
+    int randX = QRandomGenerator::global()->bounded(0,200);
+    int randY = QRandomGenerator::global()->bounded(0,200);
     QString xStr;
     xStr.setNum(randX);
     QString yStr;
@@ -101,5 +154,55 @@ void MainWindow::on_testCityButton_clicked()
 
     stadt1.draw(*(this->graphScene));
     stadt2.draw(*(this->graphScene));
+}
+
+
+void MainWindow::on_testMapButton_clicked()
+{
+    City *c1 = new City("city c1", 20,50);
+    City *c2 = new City("city c2", 100,50);
+    City *c3 = new City("city c3", 20,100);
+    City *c4 = new City("city c4 (wird nie angezeigt)", 60,60);
+    map->addCity(c1);
+    map->addCity(c2);
+    map->addCity(c3);
+    Street *s1 = new Street(c1, c2);
+    Street *s2 = new Street(c2, c3);
+    Street *s3 = new Street(c2, c4); // Diese strasse sollte nicht hinzugefügt werden - da c4 nicht in stadt
+    Street *s4 = new Street(c2, c2); // Diese strasse sollte nicht hinzugefügt werden -  da sie nicht logisch ist (von c2 zu c2)
+    map->addStreet(s1);
+    map->addStreet(s2);
+    map->addStreet(s3);
+    map->addStreet(s4);
+    map->draw(*(this->graphScene));
+}
+
+
+void MainWindow::on_checkBox_toggled(bool checked)
+{
+    ui->testCityButton->setHidden(!checked);
+    ui->testMapButton->setHidden(!checked);
+    ui->test_pushButton->setHidden(!checked);
+}
+
+
+
+void MainWindow::on_addCity_button_clicked()
+{
+    CityDialog newDialog;
+
+    int accepted = newDialog.exec();
+
+    if (!accepted) {
+        qDebug() << "Fehler beim hinzufügen der Stadt (Dialog failed)";
+        return;
+    }
+
+    City *newCity = newDialog.createCity();
+
+    this->map->addCity(newCity);
+
+    this->map->draw(*(this->graphScene));
+
 }
 

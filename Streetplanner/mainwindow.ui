@@ -14,31 +14,38 @@
    <string>Streetplanner</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout" columnstretch="0,1" columnminimumwidth="200,0">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0">
     <property name="spacing">
      <number>-1</number>
     </property>
-    <item row="0" column="0">
-     <widget class="QLabel" name="input_label">
+    <item row="5" column="1">
+     <widget class="QPushButton" name="testMapButton">
       <property name="text">
-       <string>Ihre Eingabe</string>
-      </property>
-      <property name="textFormat">
-       <enum>Qt::AutoText</enum>
+       <string>Test Map</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QLineEdit" name="test_lineEdit">
-      <property name="placeholderText">
-       <string>Ihre Eingabe</string>
+    <item row="2" column="1">
+     <widget class="QCheckBox" name="checkBox">
+      <property name="enabled">
+       <bool>true</bool>
       </property>
-      <property name="clearButtonEnabled">
+      <property name="text">
+       <string>Testfunktionen anzeigen</string>
+      </property>
+      <property name="checked">
        <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="4" column="1">
+     <widget class="QPushButton" name="testCityButton">
+      <property name="text">
+       <string>Draw Test City</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
      <widget class="QPushButton" name="test_pushButton">
       <property name="toolTip">
        <string>Testet, ob die Eingabe ein Text oder eine Zahl ist</string>
@@ -48,7 +55,7 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="7" column="1">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -61,13 +68,33 @@
       </property>
      </spacer>
     </item>
-    <item row="0" column="1" rowspan="5">
+    <item row="0" column="2" rowspan="8">
      <widget class="QGraphicsView" name="graphicsView"/>
     </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="testCityButton">
+    <item row="0" column="1">
+     <widget class="QLabel" name="input_label">
       <property name="text">
-       <string>Draw Test City</string>
+       <string>Ihre Eingabe</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="test_lineEdit">
+      <property name="placeholderText">
+       <string>Ihre Eingabe</string>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QPushButton" name="addCity_button">
+      <property name="text">
+       <string>Add City</string>
       </property>
      </widget>
     </item>
