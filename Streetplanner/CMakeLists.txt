@@ -29,6 +29,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         street.h street.cpp
         citydialog.h citydialog.cpp citydialog.ui
         mapio.cpp mapio.h mapionrw.cpp mapionrw.h
+        dijkstra.cpp dijkstra.h
+        pathdialog.h pathdialog.cpp pathdialog.ui
 
 
     )

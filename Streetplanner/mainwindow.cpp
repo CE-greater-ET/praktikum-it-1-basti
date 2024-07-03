@@ -3,6 +3,7 @@
 #include "./city.h"
 #include "./street.h"
 #include "citydialog.h"
+#include "pathdialog.h"
 #include "mapionrw.h"
 #include <QDebug>
 #include <QMessageBox>
@@ -28,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setMouseTracking(true); // E.g. set in your constructor of your widget.
 
+
     City *newCity = new City(
         QString("CITY 0 0"),
         0,
@@ -35,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
         );
     map->addCity(newCity);
     map->draw(*(this->graphScene));
+
 }
 
 // OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
@@ -197,7 +200,7 @@ void MainWindow::on_addCity_button_clicked()
     int accepted = newDialog.exec();
 
     if (!accepted) {
-        qDebug() << "Fehler beim hinzufügen der Stadt (Dialog failed)";
+        qDebug() << "Fehler beim hinzufügen der Stadt (Dialog failed / cancelled)";
         return;
     }
 
@@ -215,4 +218,143 @@ void MainWindow::on_fillMapButton_clicked()
     mapio->fillMap(*(this->map));
     this->map->draw(*(this->graphScene));
 }
+
+
+void MainWindow::on_addStreet_button_clicked()
+{
+    PathDialog newDialog;
+    newDialog.setCityList(map->getCityList());
+
+    int accepted = newDialog.exec();
+
+    if (!accepted) {
+        qDebug() << "Fehler beim erstellen der strasse (Dialog failed / cancelled)";
+        return;
+    }
+
+    Street *neueStrasse = newDialog.createStreet(this->map);
+
+    if (neueStrasse == nullptr) {
+        qDebug() << "Fehler beim erstellen der strasse (idk was, aber wahrscheinlich städte nicht gefunden (sollte nicht möglich sein))";
+        return;
+    }
+
+    this->map->addStreet(neueStrasse);
+
+    this->map->draw(*(this->graphScene));
+
+}
+
+void MainWindow::on_findPath_button_clicked()
+{
+    PathDialog newDialog;
+    newDialog.setCityList(map->getCitiesWithStreets());
+
+    int accepted = newDialog.exec();
+
+    if (!accepted) {
+        qDebug() << "Fehler beim finden des Weges (Dialog failed / cancelled)";
+        return;
+    }
+
+    QList<Street*> strassenliste = newDialog.findPath(*(this->map));
+
+    if (strassenliste.empty()) {
+        qDebug() << "Fehler beim findes des Weges (weg wurde nicht gefunden)";
+        return;
+    }
+
+    this->map->setHighlightedStreets(strassenliste);
+
+    this->map->draw(*(this->graphScene));
+}
+
+
+void MainWindow::on_abstractMapTest_button_clicked()
+{
+    Map testMap;
+    City *a = new City("a", 0, 0);
+    City *b = new City("b", 0, 100);
+    City *c = new City("c", 100, 300);
+    Street *s = new Street(a, b);
+    Street *s2 = new Street(b, c);
+
+
+    qDebug() << "MapTest: Start Test of the Map";
+    {
+        qDebug() << "MapTest: adding wrong street";
+        bool t1 = testMap.addStreet(s);
+        if (t1) {
+            qDebug() << "-Error: Street should not bee added, if cities have not been added.";
+        }
+    }
+
+    {
+        qDebug() << "MapTest: adding correct street";
+        testMap.addCity(a);
+        testMap.addCity(b);
+        bool t1 = testMap.addStreet(s);
+        if (!t1) {
+            qDebug() << "-Error: It should be possible to add this street.";
+        }
+    }
+
+    {
+        qDebug() << "MapTest: findCity";
+        City* city = testMap.findCity("a");
+        if (city != a)
+            qDebug() << "-Error: City a could not be found.";
+
+        city = testMap.findCity("b");
+        if (city != b)
+            qDebug() << "-Error: City b could not be found.";
+
+        city = testMap.findCity("c");
+        if (city != nullptr)
+            qDebug() << "-Error: If city could not be found 0 should be returned.";
+    }
+
+    testMap.addCity(c);
+    testMap.addStreet(s2);
+
+    {
+        qDebug() << "MapTest: getOppositeCity";
+        const City *city = testMap.getOppositeCity(s, a);
+        if (city != b)
+            qDebug() << "-Error: Opposite city should be b.";
+
+        city = map->getOppositeCity(s, c);
+        if (city != nullptr)
+            qDebug() << "-Error: Opposite city for a city which is not linked by given street should be 0.";
+    }
+
+    {
+        qDebug() << "MapTest: streetLength";
+        double l = testMap.getLength(s2);
+        double expectedLength = 223.6;
+        // compare doubles with 5% tolerance
+        if (l < expectedLength * 0.95 || l > expectedLength *1.05)
+            qDebug() << "-Error: Street Length is not equal to the expected.";
+
+    }
+
+    {
+        qDebug() << "MapTest: getStreetList";
+        QVector<Street*> streetList1 = testMap.getStreetList(a);
+        QVector<Street*> streetList2 = testMap.getStreetList(b);
+        if (streetList1.size() != 1) {
+            qDebug() << "-Error: One street should be found for city a.";
+        }
+        else if (*streetList1.begin() != s) {
+            qDebug() << "-Error: The wrong street has been found for city a.";
+        }
+
+        if (streetList2.size() != 2)
+            qDebug() << "-Error: Two streets should be found for city b.";
+    }
+
+    qDebug() << "MapTest: End Test of the Map.";
+}
+
+
 

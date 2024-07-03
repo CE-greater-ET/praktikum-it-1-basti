@@ -15,6 +15,9 @@ public:
 
     int getX() const { return this->x; };
     int getY() const { return this->y; };
+    QString getName() const { return this->name; };
+    bool operator==(const City& otherCity) const;
+    bool operator==(const QString& cityName) const;
 
 private:
     int x;

@@ -11,8 +11,13 @@ public:
     Street(City* , City*);
 
     void draw(QGraphicsScene& scene) const;
+    void drawRed(QGraphicsScene& scene) const;
 
-    bool connectsCities(QList<City*>&) const;
+    int getLength() const;
+
+    bool connectsCities(const QList<City*>&) const;
+    bool connectsCity(const City* city) const;
+    City* getOppositeCity(const City* city) const;
 
     ~Street();
 

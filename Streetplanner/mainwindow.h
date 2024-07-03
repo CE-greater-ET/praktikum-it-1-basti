@@ -40,6 +40,12 @@ private slots:
 
     void on_fillMapButton_clicked();
 
+    void on_abstractMapTest_button_clicked();
+
+    void on_addStreet_button_clicked();
+
+    void on_findPath_button_clicked();
+
 private:
     // OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
     void mouseDoubleClickEvent(QMouseEvent *event);

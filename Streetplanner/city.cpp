@@ -23,12 +23,25 @@ void City::draw(QGraphicsScene& scene) const {
                     .arg(this->x).arg(this->y);
     QPen pen ;
     pen.setWidth (5) ;
-    pen.setColor (Qt::red );
+    pen.setColor (Qt::cyan);
 
-    scene.addRect(this->x, this->y, 5, 5, pen);
+    QBrush brush;
+    brush.setColor(Qt::darkCyan);
+    brush.setStyle(Qt::Dense1Pattern);
+
+    scene.addRect(this->x -7, this->y -7, 15, 15, pen, brush);
     QGraphicsTextItem* text = new QGraphicsTextItem;
-    text->setPos(this->x, this->y+3) ; // Position des Textes
+    text->setPos(this->x -7, this->y+9) ; // Position des Textes
     text->setPlainText(this->name); // Text
     // Kein Smartpointer o.ä. benötigt, da .addItem() Ownership übernimmt
     scene.addItem ( text ) ;
 }
+
+bool City::operator==(const City& otherCity) const {
+    return this->name == otherCity.getName();
+}
+
+bool City::operator==(const QString& cityName) const {
+    return this->name == cityName;
+}
+

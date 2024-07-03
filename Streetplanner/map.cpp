@@ -1,5 +1,6 @@
 #include "map.h"
 #include <QtAlgorithms>
+#include <algorithm>
 
 Map::Map()
     : cities(QList<City*>()), streets(QList<Street*>()) {
@@ -20,23 +21,82 @@ bool Map::addStreet(Street* strasse) {
     }
 }
 
+QList<City*> Map::getCitiesWithStreets() const {
+    QList<City*> citiesWithStreets;
+
+    for (auto city : cities) {
+        for (auto street : streets) {
+            if (street->connectsCity(city)) {
+                citiesWithStreets.append(city);
+                break;
+            }
+        }
+    }
+    return citiesWithStreets;
+}
+
 
 void Map::draw(QGraphicsScene& scene) const {
 
     scene.clear();
 
-    qDebug() << cities.length();
-
+    for (auto street : this->streets) {
+        street->draw(scene);
+    }
+    // Optimaler wäre, nur den gehighlighteten Weg zu zeichnen, allerdings wird hier aus faulheit der alte Weg übermalt.
+    for (auto street : this->highlightedStreets) {
+        street->drawRed(scene);
+    }
+    // Städte als zweites zeichnen, damit die Namen angezeigt werden.
     for (auto city : this->cities) {
         qDebug() << city->getX() << " und " << city->getY();
         city->draw(scene);
     }
-    for (auto street : this->streets) {
-        street->draw(scene);
-    }
 }
+
+void Map::setHighlightedStreets(QList<Street*> newStreets) {
+    this->highlightedStreets = newStreets;
+}
+
+
+
+City* Map::findCity(const QString cityName) const {
+    QList<City*>::ConstIterator foundCity = std::find_if(
+        this->cities.begin(),
+        this->cities.end(),
+        [cityName](const City *cp) {
+            return *cp == cityName;
+        }
+    );
+    if (foundCity == this->cities.end()) return nullptr;
+    return *foundCity;
+}
+
+
+
+QVector<Street*> Map::getStreetList(const City* city) const {
+    // Alias für List =)
+    QVector<Street*> returnList;
+
+    for (auto street : streets) {
+        if (street->connectsCity(city)) returnList.append(street);
+    }
+    return returnList;
+}
+
+
+City* Map::getOppositeCity(const Street* street, const City* city) const {
+    return street->getOppositeCity(city);
+}
+
+
+double Map::getLength(const Street* street) const {
+    return street->getLength();
+}
+
 
 Map::~Map() {
     qDeleteAll(cities);
     qDeleteAll(streets);
+    qDeleteAll(highlightedStreets);
 }
