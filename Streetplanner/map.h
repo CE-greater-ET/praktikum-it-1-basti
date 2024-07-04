@@ -17,6 +17,9 @@ public:
     void draw(QGraphicsScene& scene) const;
     void setHighlightedStreets(QList<Street*>);
 
+    // OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
+    City* getClosestCityToXY(int x, int y) const;
+
     inline QList<City*> getCityList() const { return this->cities; };
     QList<City*> getCitiesWithStreets() const;
 

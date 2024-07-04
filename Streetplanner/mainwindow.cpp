@@ -5,6 +5,7 @@
 #include "citydialog.h"
 #include "pathdialog.h"
 #include "mapionrw.h"
+#include "mapiofileinput.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QRandomGenerator>
@@ -14,6 +15,8 @@
 #include <QGraphicsItem>
 #include <QRect>
 #include <QSize>
+#include <QFileDialog>
+#include <QStandardPaths>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -22,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     , graphScene(new QGraphicsScene)
     , map(new Map)
     , mapio(new MapIoNrw)
+    , lastPressTime(0)
 {
     ui->setupUi(this);
     ui->graphicsView->setScene(this->graphScene);
@@ -41,28 +45,40 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 // OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
-void MainWindow::mouseDoubleClickEvent(QMouseEvent *event){
+bool MainWindow::isPointOnView(QPoint ptOnView) {
     QGraphicsView *view = this->ui->graphicsView;
 
     int viewW = view->width();
     int viewH = view->height();
 
-    QPoint ptOnView = view->mapFromParent(event->position().toPoint());
-    QPoint ptOnScene = view->mapToScene(ptOnView).toPoint();
-
-    qDebug() << ptOnView;
-
-    int newX = ptOnScene.x();
-    int newY = ptOnScene.y();
-
-
-    CityDialog newDialog;
 
     // ptOnView.x() > 0: rechts von linkem view Rand
     // ptOnView.y() > 0: unter oberem view Rand
     // viewW > ptOnView.x(): Links von rechtem view Rand
     // viewH > ptOnView.y(): Über unterem view rand
-    if (ptOnView.x() > 0 && ptOnView.y() > 0 && viewW > ptOnView.x() && viewH > ptOnView.y()) {
+    return (ptOnView.x() > 0 && ptOnView.y() > 0 && viewW > ptOnView.x() && viewH > ptOnView.y());
+
+}
+
+
+// OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
+void MainWindow::mouseDoubleClickEvent(QMouseEvent *event){
+    QGraphicsView *view = this->ui->graphicsView;
+
+    QPoint ptOnView = view->mapFromParent(event->position().toPoint());
+
+    qDebug() << ptOnView;
+
+
+    if (isPointOnView(ptOnView)) {
+        CityDialog newDialog;
+
+        QPoint ptOnScene = view->mapToScene(ptOnView).toPoint();
+        int viewW = view->width();
+        int viewH = view->height();
+        int newX = ptOnScene.x();
+        int newY = ptOnScene.y();
+
         newDialog.setXYText(newX, newY);
 
         int success = newDialog.exec();
@@ -72,6 +88,44 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent *event){
         this->map->addCity(newCity);
         this->map->draw(*(this->graphScene));
     }
+}
+
+// OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
+void MainWindow::mousePressEvent(QMouseEvent *event) {
+    QGraphicsView *view = this->ui->graphicsView;
+
+    QPoint ptOnView = view->mapFromParent(event->position().toPoint());
+    QPoint ptOnScene = view->mapToScene(ptOnView).toPoint();
+
+
+    if (!isPointOnView(ptOnView)) return;
+
+    int timeDiff = event->timestamp() - lastPressTime;
+    if (timeDiff > 3000) {
+        lastPressTime = event->timestamp();
+        lastPressLocation = ptOnScene;
+        event->accept();
+        return;
+    }
+
+
+    City* city1 = this->map->getClosestCityToXY(lastPressLocation.x(), lastPressLocation.y());
+    if (city1 == nullptr) return;
+
+    City* city2 = this->map->getClosestCityToXY(ptOnScene.x(), ptOnScene.y());
+    if (city2 == nullptr) return;
+
+    PathDialog newDialog;
+
+    newDialog.setCityList(this->map->getCityList());
+    newDialog.setCity12(city1->getName(), city2->getName());
+
+    int success = newDialog.exec();
+    if (!success) return;
+
+    Street *newStreet = newDialog.createStreet(this->map);
+    this->map->addStreet(newStreet);
+    this->map->draw(*(this->graphScene));
 }
 
 MainWindow::~MainWindow()
@@ -357,4 +411,29 @@ void MainWindow::on_abstractMapTest_button_clicked()
 }
 
 
+
+
+void MainWindow::on_fillMapFile_button_clicked()
+{
+    QString cityFileName = QFileDialog::getOpenFileName(
+        this,
+        tr("Open Cities"),
+        QStandardPaths::writableLocation(QStandardPaths::HomeLocation),
+        tr("Text Files (*.txt)")
+        );
+    if (cityFileName.isEmpty()) return;
+
+    QString streetFileName = QFileDialog::getOpenFileName(
+        this,
+        tr("Open Streets"),
+        "",
+        tr("Text Files (*.txt)")
+        );
+    if (streetFileName.isEmpty()) return;
+
+    MapIoFileinput *fileIn = new MapIoFileinput(cityFileName, streetFileName);
+    this->mapio = fileIn;
+    this->mapio->fillMap(*(this->map));
+    this->map->draw(*(this->graphScene));
+}
 

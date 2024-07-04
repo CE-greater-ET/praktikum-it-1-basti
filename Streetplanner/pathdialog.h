@@ -19,6 +19,7 @@ public:
     explicit PathDialog(QWidget *parent = nullptr);
 
     void setCityList(const QList<City*>);
+    void setCity12(QString city1, QString city2);
     QList<Street*> findPath(Map&) const;
     Street* createStreet(Map*) const;
 

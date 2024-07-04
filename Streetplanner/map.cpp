@@ -1,6 +1,7 @@
 #include "map.h"
 #include <QtAlgorithms>
 #include <algorithm>
+#include <QtMath>
 
 Map::Map()
     : cities(QList<City*>()), streets(QList<Street*>()) {
@@ -33,6 +34,25 @@ QList<City*> Map::getCitiesWithStreets() const {
         }
     }
     return citiesWithStreets;
+}
+
+// OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
+City* Map::getClosestCityToXY(int x, int y) const {
+    City* closestCity = nullptr;
+    int shortestDistance = std::numeric_limits<int>::max();
+    for (auto city : cities) {
+        int xDiff = x - city->getX();
+        int yDiff = y - city->getY();
+        int distance = qSqrt(xDiff*xDiff + yDiff*yDiff);
+        qDebug() << "distance " << city->getName() << " is " << distance;
+        if (distance < shortestDistance) {
+            shortestDistance = distance;
+            closestCity = city;
+        }
+    }
+
+    if (shortestDistance < 20) return closestCity;
+    else return nullptr;
 }
 
 

@@ -1,5 +1,6 @@
 #include "citydialog.h"
 #include "ui_citydialog.h"
+#include "bigtown.h"
 #include <QDebug>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -37,7 +38,7 @@ City* CityDialog::createCity() const {
 
     qDebug() << "STADT DIALOG X: " << x << " Y: " << y << " NAME: " << name;
 
-    return new City(name, x, y);
+    return new BigTown(name, x, y);
 }
 
 

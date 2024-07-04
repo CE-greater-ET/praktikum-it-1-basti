@@ -46,10 +46,17 @@ private slots:
 
     void on_findPath_button_clicked();
 
+    void on_fillMapFile_button_clicked();
+
 private:
     // OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
     void mouseDoubleClickEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
+    bool isPointOnView(QPoint ptOnView);
+
+    QPoint lastPressLocation;
+    quint64 lastPressTime;
 
     Ui::MainWindow *ui;
     QGraphicsScene *graphScene;

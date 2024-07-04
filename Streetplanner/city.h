@@ -11,7 +11,7 @@ class City
 public:
     City(QString name, int x, int y);
 
-    void draw(QGraphicsScene& scene) const;
+    virtual void draw(QGraphicsScene& scene) const;
 
     int getX() const { return this->x; };
     int getY() const { return this->y; };
@@ -19,7 +19,7 @@ public:
     bool operator==(const City& otherCity) const;
     bool operator==(const QString& cityName) const;
 
-private:
+protected:
     int x;
     int y;
     QString name;

@@ -3,7 +3,8 @@
 
 Street::Street(City* stadt1, City* stadt2):
     city1(stadt1),
-    city2(stadt2){
+    city2(stadt2),
+    tempolimit(30) {
 }
 
 
@@ -11,7 +12,7 @@ void Street::draw(QGraphicsScene& scene) const {
     QPen pen ;
 
     pen.setWidth (3) ;
-    pen.setColor (Qt::blue );
+    pen.setColor (Qt::lightGray );
 
 
     scene.addLine(
@@ -69,7 +70,8 @@ City* Street::getOppositeCity(const City* city) const {
 int Street::getLength() const {
     int xDiff = city1->getX() - city2->getX();
     int yDiff = city1->getY() - city2->getY();
-    return qSqrt(xDiff*xDiff + yDiff*yDiff);
+
+    return qSqrt(xDiff*xDiff + yDiff*yDiff) / this->tempolimit;
 }
 
 

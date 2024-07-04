@@ -1,0 +1,5 @@
+Düsseldorf 60 630
+Köln 60 680
+Mönchengladbach 30 630
+Leverkusen 70 660
+Aachen 10 700

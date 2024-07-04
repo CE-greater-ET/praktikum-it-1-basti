@@ -31,6 +31,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         mapio.cpp mapio.h mapionrw.cpp mapionrw.h
         dijkstra.cpp dijkstra.h
         pathdialog.h pathdialog.cpp pathdialog.ui
+        bigtown.h bigtown.cpp
+        smalltown.h smalltown.cpp
+        mapiofileinput.cpp mapiofileinput.h
+        motorway.h motorway.cpp
+        stateroad.h stateroad.cpp
 
 
     )

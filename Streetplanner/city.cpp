@@ -12,30 +12,25 @@ City::City(QString p_name, int p_x, int p_y):
 
 void City::draw(QGraphicsScene& scene) const {
 
-    //QString xStr;
-    //xStr.setNum(this->x);
-
-    //QString yStr;
-    //yStr.setNum(this->y);
-
-    qDebug() << QString("Stadt mit dem Namen %1 wird an X: %2 Y: %3 gemalt.")
+    qDebug() << QString("Alte City mit dem Namen %1 wird an X: %2 Y: %3 gemalt.")
                     .arg(this->name)
                     .arg(this->x).arg(this->y);
     QPen pen ;
-    pen.setWidth (5) ;
-    pen.setColor (Qt::cyan);
+    pen.setWidth (3) ;
+    pen.setColor (Qt::red);
 
     QBrush brush;
-    brush.setColor(Qt::darkCyan);
+    brush.setColor(Qt::darkRed);
     brush.setStyle(Qt::Dense1Pattern);
 
-    scene.addRect(this->x -7, this->y -7, 15, 15, pen, brush);
+    scene.addRect(this->x -5, this->y -5, 10, 10, pen, brush);
     QGraphicsTextItem* text = new QGraphicsTextItem;
-    text->setPos(this->x -7, this->y+9) ; // Position des Textes
+    text->setPos(this->x -5, this->y+7) ; // Position des Textes
     text->setPlainText(this->name); // Text
     // Kein Smartpointer o.ä. benötigt, da .addItem() Ownership übernimmt
     scene.addItem ( text ) ;
 }
+
 
 bool City::operator==(const City& otherCity) const {
     return this->name == otherCity.getName();

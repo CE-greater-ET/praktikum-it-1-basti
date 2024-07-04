@@ -26,6 +26,11 @@ void PathDialog::setCityList(const QList<City*> cities) {
     }
 }
 
+void PathDialog::setCity12(QString city1, QString city2) {
+    ui->startCity_Selection->setCurrentText(city1);
+    ui->destinationCity_Selection->setCurrentText(city2);
+}
+
 QList<Street*> PathDialog::findPath(Map& map) const {
     QString startName = ui->startCity_Selection->currentText();
     QString destinationName = ui->destinationCity_Selection->currentText();

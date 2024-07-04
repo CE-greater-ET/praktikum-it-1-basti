@@ -10,8 +10,8 @@ class Street
 public:
     Street(City* , City*);
 
-    void draw(QGraphicsScene& scene) const;
-    void drawRed(QGraphicsScene& scene) const;
+    virtual void draw(QGraphicsScene& scene) const;
+    virtual void drawRed(QGraphicsScene& scene) const;
 
     int getLength() const;
 
@@ -22,9 +22,10 @@ public:
     ~Street();
 
 
-private:
+protected:
     City* city1;
     City* city2;
+    int tempolimit;
 };
 
 #endif // STREET_H
