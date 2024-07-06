@@ -109,7 +109,7 @@ int main()
                   << "(4): Datenbank in umgekehrter Reihenfolge ausgeben" << std::endl
                   << "(5): Datenelement loeschen" << std::endl
                   << "(6): Datenelement vorne hinzufügen" << std::endl
-                  << "(7): ?? Datenelement vorne loeschen" << std::endl
+                  << "(7): Datenelement hinten entfernen" << std::endl
                   << "(8): Daten aus einer Datei einlesen" << std::endl
                   << "(9): Daten in eine Datei abspeichern" << std::endl
                   << "(0): Beenden" << std::endl;
@@ -260,6 +260,24 @@ int main()
             	}
 
                 break;
+
+			// Datenelement hinten entfernen
+			case '7':
+				{
+					if(!studentenListe.empty())
+					{
+						student = studentenListe.end();
+						std::cout << "Der folgende Student ist geloescht worden:" << std::endl;
+						student.ausgabe();
+						// nicht optimal, eigentlich sollte .erase(student) verwendet werden - aber Aufgabe will pop...
+						studentenListe.pop_back();
+					}
+					else
+					{
+						std::cout << "Die Liste ist leer!\n";
+					}
+				}
+				break;
 
             // Daten aus einer Datei einlesen
 			case '8':
