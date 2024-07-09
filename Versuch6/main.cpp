@@ -153,7 +153,7 @@ int main()
                 {
                     if(!studentenListe.empty())
                     {
-                        student = *(studentenListe.front());
+                        student = studentenListe.front();
                         std::cout << "Der folgende Student ist geloescht worden:" << std::endl;
                         student.ausgabe();
                         studentenListe.erase(studentenListe.begin());
