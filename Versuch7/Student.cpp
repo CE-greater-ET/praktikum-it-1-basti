@@ -73,27 +73,64 @@ void Student::ausgabe(ostream& outStream) const
               << std::endl;
 }
 
+/**
+ * @brief Vergleichsoperator
+ *
+ * @return bool Äquivalenz der Matrikelnummern der beiden Studenten
+ */
 bool Student::operator==(const Student& otherStudent) const {
 	if (this->matNr == otherStudent.getMatNr()) return true;
 	else return false;
 }
+
+/**
+ * @brief Kleiner-Operator
+ *
+ * @return bool Relation der Matrikelnummern der beiden Studenten
+ */
 bool Student::operator<(const Student& otherStudent) const {
 	if (this->matNr < otherStudent.getMatNr()) return true;
 	else return false;
 }
+
+/**
+ * @brief Größer-Operator
+ *
+ * @return bool Relation der Matrikelnummern der beiden Studenten
+ */
 bool Student::operator>(const Student& otherStudent) const {
 	if (this->matNr > otherStudent.getMatNr()) return true;
 	else return false;
 }
+
+/**
+ * @brief Kleiner-Gleich-Operator
+ *
+ * @return bool Relation der Matrikelnummern der beiden Studenten
+ */
 bool Student::operator<=(const Student& otherStudent) const {
 	if (this->matNr <= otherStudent.getMatNr()) return true;
 	else return false;
 }
+
+/**
+ * @brief Größer-Gleich-Operator
+ *
+ * @return bool Relation der Matrikelnummern der beiden Studenten
+ */
 bool Student::operator>=(const Student& otherStudent) const {
 	if (this->matNr >= otherStudent.getMatNr()) return true;
 	else return false;
 }
 
+
+/**
+ * @brief Ausgabeoperator
+ *
+ * @param outStream Der Output stream (z.B. Datei oder cout)
+ * @param student Student, der ausgegeben werden soll
+ * @return Den Manipulierten outStream
+ */
 ostream& operator<<(ostream& outStream, const Student& student) {
 	student.ausgabe(outStream);
 

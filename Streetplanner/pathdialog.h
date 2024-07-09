@@ -18,9 +18,27 @@ class PathDialog : public QDialog
 public:
     explicit PathDialog(QWidget *parent = nullptr);
 
+    /**
+     * @brief Setze die auswählbaren Städte
+     * @param QList Die Liste aus City*, aus denen ausgewählt werden darf
+     */
     void setCityList(const QList<City*>);
+
+    /**
+     * @brief Setzt die ausgewählten Straßen im Dialog, z.B. für Standardauswahl
+     */
     void setCity12(QString city1, QString city2);
+
+    /**
+     * @brief Findet den Weg der beiden ausgewählten Städte durch Dijkstra
+     * @return Die Liste der Straßen, die zum verbinden nötig sind - falls möglich
+     */
     QList<Street*> findPath(Map&) const;
+
+    /**
+     * @brief Erstellt eine Straße zwischen den beiden ausgewählten Städten
+     * @return Die Erstellte Straße
+     */
     Street* createStreet(Map*) const;
 
     ~PathDialog();

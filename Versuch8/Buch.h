@@ -15,6 +15,10 @@ public:
 	Buch(std::string initTitel, std::string initAutor);
 	virtual ~Buch();
 
+	/**
+	 * @brief Gibt das Buch aus
+	 * @param outStream Der Outstream, in den ausgegeben werden soll
+	 */
 	void ausgabe(ostream& outStream = cout) const override;
 
 private:

@@ -10,7 +10,7 @@ void Motorway::draw(QGraphicsScene& scene) const {
     QPen pen ;
 
     pen.setWidth (7) ;
-    pen.setColor (Qt::GlobalColor::white );
+    pen.setColor (Qt::GlobalColor::darkMagenta );
 
 
     scene.addLine(
@@ -21,7 +21,7 @@ void Motorway::draw(QGraphicsScene& scene) const {
         pen
         );
 
-    QPen dashedPen(QBrush(Qt::black), 2, Qt::DashLine);
+    QPen dashedPen(QBrush(Qt::gray), 2, Qt::DashDotDotLine);
 
     scene.addLine(
         this->city1->getX(),

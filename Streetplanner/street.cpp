@@ -12,7 +12,7 @@ void Street::draw(QGraphicsScene& scene) const {
     QPen pen ;
 
     pen.setWidth (3) ;
-    pen.setColor (Qt::lightGray );
+    pen.setColor (Qt::blue );
 
 
     scene.addLine(

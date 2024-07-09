@@ -13,10 +13,10 @@ void SmallTown::draw(QGraphicsScene& scene) const {
                     .arg(this->x).arg(this->y);
     QPen pen ;
     pen.setWidth (3) ;
-    pen.setColor (Qt::cyan);
+    pen.setColor (QColor(0, 255, 21));
 
     QBrush brush;
-    brush.setColor(Qt::darkCyan);
+    brush.setColor(QColor(0, 122, 10));
     brush.setStyle(Qt::Dense1Pattern);
 
     scene.addRect(this->x -5, this->y -5, 10, 10, pen, brush);

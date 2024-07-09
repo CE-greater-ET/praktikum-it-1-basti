@@ -13,11 +13,11 @@ void BigTown::draw(QGraphicsScene& scene) const {
                     .arg(this->x).arg(this->y);
     QPen pen ;
     pen.setWidth (3) ;
-    pen.setColor(QColor(255, 115, 0));
+    pen.setColor(QColor(63, 0, 140));
 
     QBrush brush;
-    brush.setColor(QColor(145, 66, 0));
-    brush.setStyle(Qt::Dense1Pattern);
+    brush.setColor(QColor(113, 5, 245));
+    brush.setStyle(Qt::Dense2Pattern);
 
     QPolygonF cityShape;
     // Burg-Shape

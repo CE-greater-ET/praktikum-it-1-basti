@@ -11,7 +11,7 @@ void Stateroad::draw(QGraphicsScene& scene) const {
     QPen pen ;
 
     pen.setWidth (5) ;
-    pen.setColor (Qt::GlobalColor::blue );
+    pen.setColor (Qt::GlobalColor::green );
 
 
     scene.addLine(

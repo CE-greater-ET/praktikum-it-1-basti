@@ -16,6 +16,11 @@ public:
     explicit CityDialog(QWidget *parent = nullptr);
     ~CityDialog();
 
+    /**
+     * @brief Erstellt eine Stadt mit den im Dialog eingegebenen Parametern
+     *
+     * @returns Die erstellte Stadt
+     */
     City* createCity() const;
 
     // OPTIONALES FEATURE - MUSS NICHT EXISTIEREN (AUCH KEIN WAHLPFLICHT)
