@@ -111,7 +111,7 @@ void Datum::eingabe(std::istream& in)
             // Einlesen des Jahrs
             stringstream >> jahr;
 
-            if(jahr < 1000 || jahr > 2021 )
+            if(jahr < 1000 || jahr > 2024 )
             {
                 throw(std::string("Ungültiges Jahr!"));
             }

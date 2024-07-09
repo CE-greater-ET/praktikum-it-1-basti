@@ -266,7 +266,7 @@ int main()
 				{
 					if(!studentenListe.empty())
 					{
-						student = studentenListe.end();
+						student = *(studentenListe.end());
 						std::cout << "Der folgende Student ist geloescht worden:" << std::endl;
 						student.ausgabe();
 						// nicht optimal, eigentlich sollte .erase(student) verwendet werden - aber Aufgabe will pop...
